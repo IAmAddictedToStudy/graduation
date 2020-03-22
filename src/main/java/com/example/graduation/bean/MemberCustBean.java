@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+
 
 /**
  * @author LiaoFuQin
@@ -20,11 +22,21 @@ import lombok.NoArgsConstructor;
 public class MemberCustBean {
 
     private Long id;
+    @NotEmpty(message = "账号不能为空")
     private String custStudentNumber;
+    @NotEmpty(message = "密码不能为空")
     private String custPassword;
+    @NotEmpty(message = "姓名不能为空")
     private String custName;
+    @NotEmpty(message = "学院不能为空")
     private String custAcademy;
+    @NotEmpty(message = "年级不能为空")
     private String custGrade;
+    @NotEmpty(message = "专业不能为空")
     private String custProfession;
-    private String custPhone;
+    //    @NotEmpty(message = "手机不能为空")
+//    private String custPhone;
+    @NotEmpty(message = "性格类型不能为空")
+    private String custCharacter;
+
 }

@@ -1,15 +1,15 @@
 package com.example.graduation.controller;
 
-import com.example.graduation.bean.CommonResultBean;
-import com.example.graduation.bean.MemberCustBean;
-import com.example.graduation.bean.MemberCustLoginRequestBean;
-import com.example.graduation.bean.QueryMemberCustResponseBean;
-import com.example.graduation.repository.MemberCustRepository;
+import com.example.graduation.bean.*;
+import com.example.graduation.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 /**
  * @author LiaoFuQin
@@ -19,19 +19,27 @@ import org.springframework.web.bind.annotation.RestController;
  * @Created by LiaoFuQin
  */
 @RestController
-public class MemberController {
+public class MemberController extends BaseController {
     @Autowired
-    MemberCustRepository memberCustRepository;
+    MemberService memberService;
 
-    @RequestMapping("/")
+    @RequestMapping("/queryAllMemberController")
     public CommonResultBean<QueryMemberCustResponseBean> queryAllMemberController() {
         CommonResultBean<QueryMemberCustResponseBean> resultBean = new CommonResultBean<>();
-        resultBean.setData(memberCustRepository.queryMemberCustMapper());
+        resultBean.setData(memberService.queryAllMemberService());
+        return resultBean;
+    }
+
+    @RequestMapping("/queryMemberCust")
+    public CommonResultBean<QueryMemberCustResponseBean> queryMemberCust(QueryMemberCustRequestBean queryMemberCustRequestBean) {
+        CommonResultBean<QueryMemberCustResponseBean> resultBean = new CommonResultBean<>();
+        QueryMemberCustResponseBean queryMemberCustResponseBean = memberService.queryMemberCust(queryMemberCustRequestBean);
+        resultBean.setData(queryMemberCustResponseBean);
         return resultBean;
     }
 
     @PostMapping("/login")
-    public CommonResultBean<MemberCustBean> login(MemberCustLoginRequestBean requestBean) throws Exception {
+    public CommonResultBean<MemberCustBean> login(MemberCustLoginRequestBean requestBean, HttpSession session) throws Exception {
         CommonResultBean<MemberCustBean> resultBean = new CommonResultBean<>();
         if (StringUtils.isEmpty(requestBean.getCustPassword())) {
             resultBean.setResultCode("-1");
@@ -44,7 +52,8 @@ public class MemberController {
             return resultBean;
         }
         try {
-            MemberCustBean login = memberCustRepository.login(requestBean);
+            MemberCustBean login = memberService.login(requestBean);
+            session.setAttribute("memberCustBean", login);
             resultBean.setData(login);
         } catch (Exception e) {
             resultBean.setResultCode("-1");
@@ -53,5 +62,18 @@ public class MemberController {
         }
 
         return resultBean;
+    }
+
+
+    @PostMapping("/register")
+    public CommonResultBean register(@Valid MemberCustBean memberCustBean) {
+        CommonResultBean commonResultBean = new CommonResultBean();
+        try {
+            memberService.register(memberCustBean);
+        } catch (Exception e) {
+            commonResultBean.setResultCode("-1");
+            commonResultBean.setResultMsg(e.getMessage());
+        }
+        return commonResultBean;
     }
 }

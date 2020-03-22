@@ -19,4 +19,5 @@ public class QueryMemberCustRequestBean {
     private String custGrade;
     private String custProfession;
     private String custPhone;
+    private String custCharacter;
 }

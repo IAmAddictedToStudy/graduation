@@ -41,10 +41,12 @@
         .demo-table-expand {
             font-size: 0;
         }
+
         .demo-table-expand label {
             width: 90px;
             color: #99a9bf;
         }
+
         .demo-table-expand .el-form-item {
             margin-right: 0;
             margin-bottom: 0;
@@ -53,461 +55,480 @@
     </style>
 </head>
 <body>
-    <div id="app">
-        <el-container>
-            <el-header style="position: fixed;width: 100%;float: left;z-index: 99;">
-                <el-menu
-                        :default-active="activeIndex2"
-                        class="el-menu-demo"
-                        mode="horizontal"
-                        @select="handleSelect"
-                        background-color="#545c64"
-                        text-color="#fff"
-                        active-text-color="#ffd04b">
-                    <el-menu-item index="1"><a href="#numberone">平均型</a></el-menu-item>
-                    <el-menu-item index="2">
-                        <template slot="title"> <a href="#numbertwo" >榜样型</a></template>
-<!--                        <el-menu-item index="2-1">选项1</el-menu-item>-->
-<!--                        <el-menu-item index="2-2">选项2</el-menu-item>-->
-<!--                        <el-menu-item index="2-3">选项3</el-menu-item>-->
-<!--                        <el-submenu index="2-4">-->
-<!--                            <template slot="title">选项4</template>-->
-<!--                            <el-menu-item index="2-4-1">选项1</el-menu-item>-->
-<!--                            <el-menu-item index="2-4-2">选项2</el-menu-item>-->
-<!--                            <el-menu-item index="2-4-3">选项3</el-menu-item>-->
-                        </el-menu-item>
-                    </el-submenu>
-                    <el-menu-item index="3"><a href="#numbertree">和平型</a></el-menu-item>
-                    <el-menu-item index="4"><a href="#numberfour">自我为中心型</a></el-menu-item>
-                </el-menu>
+<div id="app">
+    <el-container>
+        <el-header style="position: fixed;width: 100%;float: left;z-index: 99;">
+            <el-menu
+                    :default-active="activeIndex2"
+                    class="el-menu-demo"
+                    mode="horizontal"
+                    @select="handleSelect"
+                    background-color="#545c64"
+                    text-color="#fff"
+                    active-text-color="#ffd04b">
+                <el-menu-item index="1"><a href="#numberone">平均型</a></el-menu-item>
+                <el-menu-item index="2">
+                    <template slot="title"><a href="#numbertwo">榜样型</a></template>
+                    <!--                        <el-menu-item index="2-1">选项1</el-menu-item>-->
+                    <!--                        <el-menu-item index="2-2">选项2</el-menu-item>-->
+                    <!--                        <el-menu-item index="2-3">选项3</el-menu-item>-->
+                    <!--                        <el-submenu index="2-4">-->
+                    <!--                            <template slot="title">选项4</template>-->
+                    <!--                            <el-menu-item index="2-4-1">选项1</el-menu-item>-->
+                    <!--                            <el-menu-item index="2-4-2">选项2</el-menu-item>-->
+                    <!--                            <el-menu-item index="2-4-3">选项3</el-menu-item>-->
+                </el-menu-item>
+                </el-submenu>
+                <el-menu-item index="3"><a href="#numbertree">和平型</a></el-menu-item>
+                <el-menu-item index="4"><a href="#numberfour">自我为中心型</a></el-menu-item>
+            </el-menu>
 
-            </el-header>
-            <el-main>
-                    <div id="numberone" style="width: 100%;height: 100%;text-align: center">
-                        <div id="xingge" style="color:#000000;height: 30px;
+        </el-header>
+        <el-main>
+            <div id="numberone" style="width: 100%;height: 100%;text-align: center">
+                <div id="xingge" style="color:#000000;height: 30px;
                         width: 100%;text-align: center;margin: 50px 0 10px 0;
-                        background-color: #714cbf;">平均型</div>
-                        <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
-                            <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                                    :data="tableData"
-                                    style="width: 100%">
-                                <el-table-column type="expand">
-                                    <template slot-scope="props">
-                                        <el-form label-position="left" inline class="demo-table-expand">
-                                            <el-form-item label="商品名称">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="所属店铺">
-                                                <span>{{ props.row.shop }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品 ID">
-                                                <span>{{ props.row.id }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="店铺 ID">
-                                                <span>{{ props.row.shopId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品分类">
-                                                <span>{{ props.row.category }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="店铺地址">
-                                                <span>{{ props.row.address }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品描述">
-                                                <span>{{ props.row.desc }}</span>
-                                            </el-form-item>
-                                        </el-form>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                        label="商品 ID"
-                                        prop="id">
-                                </el-table-column>
-                                <el-table-column
-                                        label="商品名称"
-                                        prop="name">
-                                </el-table-column>
-                                <el-table-column
-                                        label="描述"
-                                        prop="desc">
-                                </el-table-column>
-                                <el-table-column
-                                        align="right">
-                                    <template slot="header" slot-scope="scope">
-                                        <el-input
-                                                v-model="search"
-                                                size="mini"
-                                                placeholder="输入关键字搜索"/>
-                                    </template>
-                                    <template slot-scope="scope">
-                                        <el-button
-                                                size="mini"
-                                                @click="handleEdit(scope.$index, scope.row)">加入</el-button>
-                                        <el-button
-                                                size="mini"
-                                                type="danger"
-                                                @click="handleDelete(scope.$index, scope.row)">举报</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-
-                        </div>
-                    </div>
-                <div>
-                    <div id="numbertwo" style="width: 100%;height: 100%;text-align: center">
-                        <div id="xingge1" style="color:#000000;height: 30px;
-                        width: 100%;text-align: center;margin: 0 0 10px 0;
-                        background-color: #714cbf;padding:50px 0 0 5px ">榜样型</div>
-                        <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
-                            <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                                      :data="tableData"
-                                      style="width: 100%">
-                                <el-table-column type="expand">
-                                    <template slot-scope="props">
-                                        <el-form label-position="left" inline class="demo-table-expand">
-                                            <el-form-item label="商品名称">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="所属店铺">
-                                                <span>{{ props.row.shop }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品 ID">
-                                                <span>{{ props.row.id }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="店铺 ID">
-                                                <span>{{ props.row.shopId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品分类">
-                                                <span>{{ props.row.category }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="店铺地址">
-                                                <span>{{ props.row.address }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品描述">
-                                                <span>{{ props.row.desc }}</span>
-                                            </el-form-item>
-                                        </el-form>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                        label="商品 ID"
-                                        prop="id">
-                                </el-table-column>
-                                <el-table-column
-                                        label="商品名称"
-                                        prop="name">
-                                </el-table-column>
-                                <el-table-column
-                                        label="描述"
-                                        prop="desc">
-                                </el-table-column>
-                                <el-table-column
-                                        align="right">
-                                    <template slot="header" slot-scope="scope">
-                                        <el-input
-                                                v-model="search"
-                                                size="mini"
-                                                placeholder="输入关键字搜索"/>
-                                    </template>
-                                    <template slot-scope="scope">
-                                        <el-button
-                                                size="mini"
-                                                @click="handleEdit(scope.$index, scope.row)">加入</el-button>
-                                        <el-button
-                                                size="mini"
-                                                type="danger"
-                                                @click="handleDelete(scope.$index, scope.row)">举报</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-
-                        </div>
-
-                    </div>
+                        background-color: #714cbf;">平均型
                 </div>
-                <div>
-                    <div id="numbertree" style="width: 100%;height: 100%;text-align: center">
-                        <div id="xingge2" style="color:#000000;height: 30px;
-                        width: 100%;text-align: center;margin: 30px 0 10px 0;
-                        background-color: #714cbf;">保守型</div>
-                        <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
-                            <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                                      :data="tableData"
-                                      style="width: 100%">
-                                <el-table-column type="expand">
-                                    <template slot-scope="props">
-                                        <el-form label-position="left" inline class="demo-table-expand">
-                                            <el-form-item label="商品名称">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="所属店铺">
-                                                <span>{{ props.row.shop }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品 ID">
-                                                <span>{{ props.row.id }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="店铺 ID">
-                                                <span>{{ props.row.shopId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品分类">
-                                                <span>{{ props.row.category }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="店铺地址">
-                                                <span>{{ props.row.address }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品描述">
-                                                <span>{{ props.row.desc }}</span>
-                                            </el-form-item>
-                                        </el-form>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                        label="商品 ID"
-                                        prop="id">
-                                </el-table-column>
-                                <el-table-column
-                                        label="商品名称"
-                                        prop="name">
-                                </el-table-column>
-                                <el-table-column
-                                        label="描述"
-                                        prop="desc">
-                                </el-table-column>
-                                <el-table-column
-                                        align="right">
-                                    <template slot="header" slot-scope="scope">
-                                        <el-input
-                                                v-model="search"
-                                                size="mini"
-                                                placeholder="输入关键字搜索"/>
-                                    </template>
-                                    <template slot-scope="scope">
-                                        <el-button
-                                                size="mini"
-                                                @click="handleEdit(scope.$index, scope.row)">加入</el-button>
-                                        <el-button
-                                                size="mini"
-                                                type="danger"
-                                                @click="handleDelete(scope.$index, scope.row)">举报</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                        </div>
-                    </div>
+                <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
+                    <el-table
+                            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                            :data="tableData"
+                            style="width: 100%">
+                        <el-table-column type="expand">
+                            <template slot-scope="props">
+                                <el-form label-position="left" inline class="demo-table-expand">
+                                    <el-form-item label="商品名称">
+                                        <span>{{ props.row.name }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="所属店铺">
+                                        <span>{{ props.row.shop }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="商品 ID">
+                                        <span>{{ props.row.id }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="店铺 ID">
+                                        <span>{{ props.row.shopId }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="商品分类">
+                                        <span>{{ props.row.category }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="店铺地址">
+                                        <span>{{ props.row.address }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="商品描述">
+                                        <span>{{ props.row.desc }}</span>
+                                    </el-form-item>
+                                </el-form>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                label="商品 ID"
+                                prop="id">
+                        </el-table-column>
+                        <el-table-column
+                                label="商品名称"
+                                prop="name">
+                        </el-table-column>
+                        <el-table-column
+                                label="描述"
+                                prop="desc">
+                        </el-table-column>
+                        <el-table-column
+                                align="right">
+                            <template slot="header" slot-scope="scope">
+                                <el-input
+                                        v-model="search"
+                                        size="mini"
+                                        placeholder="输入关键字搜索"/>
+                            </template>
+                            <template slot-scope="scope">
+                                <el-button
+                                        size="mini"
+                                        @click="handleEdit(scope.$index, scope.row)">加入
+                                </el-button>
+                                <el-button
+                                        size="mini"
+                                        type="danger"
+                                        @click="handleDelete(scope.$index, scope.row)">举报
+                                </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+
                 </div>
-                <div>
-                    <div id="numberfour" style="width: 100%;height: 100%;text-align: center">
-                        <div id="xingge3" style="color:#000000;height: 30px;
-                        width: 100%;text-align: center;margin: 30px 0 10px 0;
-                        background-color: #714cbf;">自我为中心型</div>
-                        <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
-                            <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                                      :data="tableData"
-                                      style="width: 100%">
-                                <el-table-column type="expand">
-                                    <template slot-scope="props">
-                                        <el-form label-position="left" inline class="demo-table-expand">
-                                            <el-form-item label="商品名称">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="所属店铺">
-                                                <span>{{ props.row.shop }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品 ID">
-                                                <span>{{ props.row.id }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="店铺 ID">
-                                                <span>{{ props.row.shopId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品分类">
-                                                <span>{{ props.row.category }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="店铺地址">
-                                                <span>{{ props.row.address }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="商品描述">
-                                                <span>{{ props.row.desc }}</span>
-                                            </el-form-item>
-                                        </el-form>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                        label="商品 ID"
-                                        prop="id">
-                                </el-table-column>
-                                <el-table-column
-                                        label="商品名称"
-                                        prop="name">
-                                </el-table-column>
-                                <el-table-column
-                                        label="描述"
-                                        prop="desc">
-                                </el-table-column>
-                                <el-table-column
-                                        align="right">
-                                    <template slot="header" slot-scope="scope">
-                                        <el-input
-                                                v-model="search"
-                                                size="mini"
-                                                placeholder="输入关键字搜索"/>
-                                    </template>
-                                    <template slot-scope="scope">
-                                        <el-button
-                                                size="mini"
-                                                @click="handleEdit(scope.$index, scope.row)">加入</el-button>
-                                        <el-button
-                                                size="mini"
-                                                type="danger"
-                                                @click="handleDelete(scope.$index, scope.row)">举报</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                            <el-button type="info" @click="chaungjianvibe=true">创建</el-button>
-                        </div>
-                    </div>
-                </div>
-            </el-main>
-        </el-container>
-        <el-dialog title="活动创建" :visible.sync="chaungjianvibe">
-            <el-form :model="chuangj_form" ref="chuangjianForm">
-                <el-form-item label="活动名称" :label-width="formLabelWidth"  prop="name" :rules="[{ required: true, message: '地点不能为空'}]">
-                    <el-input v-model="chuangj_form.name" autocomplete="off" type="text"></el-input>
-                </el-form-item>
-                <el-form-item label="规则" :label-width="formLabelWidth"  prop="rule" :rules="[{ required: true, message: '地点不能为空'}]">
-                    <el-input v-model="chuangj_form.rule" autocomplete="off" type="text"></el-input>
-                </el-form-item>
-                <el-form-item label="活动时间" :label-width="formLabelWidth"  prop="time" :rules="[{ required: true, message: '地点不能为空'}]">
-                    <el-input v-model="chuangj_form.time" autocomplete="off" type="date"></el-input>
-                </el-form-item>
-                <el-form-item label="活动内容" :label-width="formLabelWidth"  prop="text" :rules="[{ required: true, message: '地点不能为空'}]">
-                    <el-input v-model="chuangj_form.text" autocomplete="off" type="text"></el-input>
-                </el-form-item>
-                <el-form-item label="活动区域" :label-width="formLabelWidth" prop="region" :rules="[{ required: true, message: '区域不能为空'}]">
-                    <el-select v-model="chuangj_form.region" placeholder="请选择活动区域">
-                        <el-option label="校内" value="福建师范大学"></el-option>
-                        <el-option label="校外" value="福州"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="具体地点" :label-width="formLabelWidth" prop="place" :rules="[{ required: true, message: '地点不能为空'}]">
-                    <el-input v-model="chuangj_form.place" autocomplete="off" type="text"></el-input>
-                </el-form-item>
-                <el-form-item label="发起人/组织" :label-width="formLabelWidth"  prop="people" :rules="[{ required: true, message: '地点不能为空'}]">
-                    <el-input v-model="chuangj_form.people" autocomplete="off" type="text"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="chaungjianvibe=false">取 消</el-button>
-                <el-button  @click="chaungjian('chuangjianForm')">确 定</el-button>
             </div>
-        </el-dialog>
-    </div>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <script>
-        new Vue({
-            el: '#app',
-            data: function() {
+            <div>
+                <div id="numbertwo" style="width: 100%;height: 100%;text-align: center">
+                    <div id="xingge1" style="color:#000000;height: 30px;
+                        width: 100%;text-align: center;margin: 0 0 10px 0;
+                        background-color: #714cbf;padding:50px 0 0 5px ">榜样型
+                    </div>
+                    <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
+                        <el-table
+                                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                                :data="tableData"
+                                style="width: 100%">
+                            <el-table-column type="expand">
+                                <template slot-scope="props">
+                                    <el-form label-position="left" inline class="demo-table-expand">
+                                        <el-form-item label="商品名称">
+                                            <span>{{ props.row.name }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="所属店铺">
+                                            <span>{{ props.row.shop }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="商品 ID">
+                                            <span>{{ props.row.id }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="店铺 ID">
+                                            <span>{{ props.row.shopId }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="商品分类">
+                                            <span>{{ props.row.category }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="店铺地址">
+                                            <span>{{ props.row.address }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="商品描述">
+                                            <span>{{ props.row.desc }}</span>
+                                        </el-form-item>
+                                    </el-form>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="商品 ID"
+                                    prop="id">
+                            </el-table-column>
+                            <el-table-column
+                                    label="商品名称"
+                                    prop="name">
+                            </el-table-column>
+                            <el-table-column
+                                    label="描述"
+                                    prop="desc">
+                            </el-table-column>
+                            <el-table-column
+                                    align="right">
+                                <template slot="header" slot-scope="scope">
+                                    <el-input
+                                            v-model="search"
+                                            size="mini"
+                                            placeholder="输入关键字搜索"/>
+                                </template>
+                                <template slot-scope="scope">
+                                    <el-button
+                                            size="mini"
+                                            @click="handleEdit(scope.$index, scope.row)">加入
+                                    </el-button>
+                                    <el-button
+                                            size="mini"
+                                            type="danger"
+                                            @click="handleDelete(scope.$index, scope.row)">举报
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
 
-                return {
-                    dialogFormVisible: false,
-                    chaungjianvibe:false,
-                    chuangj_form:{
-                        name:'',
-                        people:'',
-                        rule:'',
-                        text:'',
-                        time:'',
-                        place:'',
-                        region:'',
-                    },
-                    formLabelWidth: '120px',
-                    form: {
-                        name: '',
-                        region: '',
-                        date1: '',
-                        date2: '',
-                        delivery: false,
-                        type: [],
-                        resource: '',
-                        desc: ''
-                    },
+                    </div>
 
-
-
-                    activeIndex: '1',
-                    activeIndex2: '1',
-                    search: '',
-                    tableData: [{
-                        id: '12987122',
-                        name: '不好滋好味鸡蛋仔',
-                        category: '江浙小吃、小吃零食',
-                        desc: '荷兰优质淡奶，奶香浓而不腻',
-                        address: '上海市普陀区真北路',
-                        shop: '王小虎夫妻店',
-                        shopId: '10333'
-                    }, {
-                        id: '12987123',
-                        name: '好滋好味鸡蛋仔',
-                        category: '江浙小吃、小吃零食',
-                        desc: '荷兰优质淡奶，奶香浓而不腻',
-                        address: '上海市普陀区真北路',
-                        shop: '王小虎夫妻店',
-                        shopId: '10333'
-                    }, {
-                        id: '12987125',
-                        name: '好滋好味鸡蛋仔',
-                        category: '江浙小吃、小吃零食',
-                        desc: '荷兰优质淡奶，奶香浓而不腻',
-                        address: '上海市普陀区真北路',
-                        shop: '王小虎夫妻店',
-                        shopId: '10333'
-                    }, {
-                        id: '12987126',
-                        name: '好滋好味鸡蛋仔',
-                        category: '江浙小吃、小吃零食',
-                        desc: '荷兰优质淡奶，奶香浓而不腻',
-                        address: '上海市普陀区真北路',
-                        shop: '王小虎夫妻店',
-                        shopId: '10333'
-                    }],
-
-                }
-            },
-            methods: {
-                chaungjian(chuangjianForm){
-                    console.log(this.chuangj_form)
-                    this.$refs[chuangjianForm].validate((valid) => {
-                        if (valid) {
-                            alert('submit!');
-                    this.chuangj_form={
-                        name:'',
-                        people:'',
-                        rule:'',
-                        text:'',
-                        time:'',
-                        place:'',
-                        region:'',
-                    }
-                    this.chaungjianvibe=false;
-                        } else {
-                            console.log('error submit!!');
-                            return false;
-                        }
-                    });
+                </div>
+            </div>
+            <div>
+                <div id="numbertree" style="width: 100%;height: 100%;text-align: center">
+                    <div id="xingge2" style="color:#000000;height: 30px;
+                        width: 100%;text-align: center;margin: 30px 0 10px 0;
+                        background-color: #714cbf;">保守型
+                    </div>
+                    <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
+                        <el-table
+                                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                                :data="tableData"
+                                style="width: 100%">
+                            <el-table-column type="expand">
+                                <template slot-scope="props">
+                                    <el-form label-position="left" inline class="demo-table-expand">
+                                        <el-form-item label="商品名称">
+                                            <span>{{ props.row.name }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="所属店铺">
+                                            <span>{{ props.row.shop }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="商品 ID">
+                                            <span>{{ props.row.id }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="店铺 ID">
+                                            <span>{{ props.row.shopId }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="商品分类">
+                                            <span>{{ props.row.category }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="店铺地址">
+                                            <span>{{ props.row.address }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="商品描述">
+                                            <span>{{ props.row.desc }}</span>
+                                        </el-form-item>
+                                    </el-form>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="商品 ID"
+                                    prop="id">
+                            </el-table-column>
+                            <el-table-column
+                                    label="商品名称"
+                                    prop="name">
+                            </el-table-column>
+                            <el-table-column
+                                    label="描述"
+                                    prop="desc">
+                            </el-table-column>
+                            <el-table-column
+                                    align="right">
+                                <template slot="header" slot-scope="scope">
+                                    <el-input
+                                            v-model="search"
+                                            size="mini"
+                                            placeholder="输入关键字搜索"/>
+                                </template>
+                                <template slot-scope="scope">
+                                    <el-button
+                                            size="mini"
+                                            @click="handleEdit(scope.$index, scope.row)">加入
+                                    </el-button>
+                                    <el-button
+                                            size="mini"
+                                            type="danger"
+                                            @click="handleDelete(scope.$index, scope.row)">举报
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div id="numberfour" style="width: 100%;height: 100%;text-align: center">
+                    <div id="xingge3" style="color:#000000;height: 30px;
+                        width: 100%;text-align: center;margin: 30px 0 10px 0;
+                        background-color: #714cbf;">自我为中心型
+                    </div>
+                    <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
+                        <el-table
+                                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                                :data="tableData"
+                                style="width: 100%">
+                            <el-table-column type="expand">
+                                <template slot-scope="props">
+                                    <el-form label-position="left" inline class="demo-table-expand">
+                                        <el-form-item label="商品名称">
+                                            <span>{{ props.row.name }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="所属店铺">
+                                            <span>{{ props.row.shop }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="商品 ID">
+                                            <span>{{ props.row.id }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="店铺 ID">
+                                            <span>{{ props.row.shopId }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="商品分类">
+                                            <span>{{ props.row.category }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="店铺地址">
+                                            <span>{{ props.row.address }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="商品描述">
+                                            <span>{{ props.row.desc }}</span>
+                                        </el-form-item>
+                                    </el-form>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="商品 ID"
+                                    prop="id">
+                            </el-table-column>
+                            <el-table-column
+                                    label="商品名称"
+                                    prop="name">
+                            </el-table-column>
+                            <el-table-column
+                                    label="描述"
+                                    prop="desc">
+                            </el-table-column>
+                            <el-table-column
+                                    align="right">
+                                <template slot="header" slot-scope="scope">
+                                    <el-input
+                                            v-model="search"
+                                            size="mini"
+                                            placeholder="输入关键字搜索"/>
+                                </template>
+                                <template slot-scope="scope">
+                                    <el-button
+                                            size="mini"
+                                            @click="handleEdit(scope.$index, scope.row)">加入
+                                    </el-button>
+                                    <el-button
+                                            size="mini"
+                                            type="danger"
+                                            @click="handleDelete(scope.$index, scope.row)">举报
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <el-button type="info" @click="chaungjianvibe=true">创建</el-button>
+                    </div>
+                </div>
+            </div>
+        </el-main>
+    </el-container>
+    <el-dialog title="活动创建" :visible.sync="chaungjianvibe">
+        <el-form :model="chuangj_form" ref="chuangjianForm">
+            <el-form-item label="活动名称" :label-width="formLabelWidth" prop="name"
+                          :rules="[{ required: true, message: '地点不能为空'}]">
+                <el-input v-model="chuangj_form.name" autocomplete="off" type="text"></el-input>
+            </el-form-item>
+            <el-form-item label="规则" :label-width="formLabelWidth" prop="rule"
+                          :rules="[{ required: true, message: '地点不能为空'}]">
+                <el-input v-model="chuangj_form.rule" autocomplete="off" type="text"></el-input>
+            </el-form-item>
+            <el-form-item label="活动时间" :label-width="formLabelWidth" prop="time"
+                          :rules="[{ required: true, message: '地点不能为空'}]">
+                <el-input v-model="chuangj_form.time" autocomplete="off" type="date"></el-input>
+            </el-form-item>
+            <el-form-item label="活动内容" :label-width="formLabelWidth" prop="text"
+                          :rules="[{ required: true, message: '地点不能为空'}]">
+                <el-input v-model="chuangj_form.text" autocomplete="off" type="text"></el-input>
+            </el-form-item>
+            <el-form-item label="活动区域" :label-width="formLabelWidth" prop="region"
+                          :rules="[{ required: true, message: '区域不能为空'}]">
+                <el-select v-model="chuangj_form.region" placeholder="请选择活动区域">
+                    <el-option label="校内" value="福建师范大学"></el-option>
+                    <el-option label="校外" value="福州"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="具体地点" :label-width="formLabelWidth" prop="place"
+                          :rules="[{ required: true, message: '地点不能为空'}]">
+                <el-input v-model="chuangj_form.place" autocomplete="off" type="text"></el-input>
+            </el-form-item>
+            <el-form-item label="发起人/组织" :label-width="formLabelWidth" prop="people"
+                          :rules="[{ required: true, message: '地点不能为空'}]">
+                <el-input v-model="chuangj_form.people" autocomplete="off" type="text"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="chaungjianvibe=false">取 消</el-button>
+            <el-button @click="chaungjian('chuangjianForm')">确 定</el-button>
+        </div>
+    </el-dialog>
+</div>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                dialogFormVisible: false,
+                chaungjianvibe: false,
+                chuangj_form: {
+                    name: '',
+                    people: '',
+                    rule: '',
+                    text: '',
+                    time: '',
+                    place: '',
+                    region: '',
                 },
-
-                MeanShape(){
-
+                formLabelWidth: '120px',
+                form: {
+                    name: '',
+                    region: '',
+                    date1: '',
+                    date2: '',
+                    delivery: false,
+                    type: [],
+                    resource: '',
+                    desc: ''
                 },
-                handleEdit(index, row) {
-                    console.log(index, row);
-                },
-                handleDelete(index, row) {
-                    console.log(index, row);
-                }
+                activeIndex: '1',
+                activeIndex2: '1',
+                search: '',
+                tableData: [{
+                    id: '12987122',
+                    name: '不好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }, {
+                    id: '12987123',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }, {
+                    id: '12987125',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }, {
+                    id: '12987126',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }],
 
             }
-            })
-    </script>
+        },
+        methods: {
+            chaungjian(chuangjianForm) {
+                console.log(this.chuangj_form)
+                this.$refs[chuangjianForm].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                        this.chuangj_form = {
+                            name: '',
+                            people: '',
+                            rule: '',
+                            text: '',
+                            time: '',
+                            place: '',
+                            region: '',
+                        }
+                        this.chaungjianvibe = false;
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+
+            MeanShape() {
+
+            },
+            handleEdit(index, row) {
+                console.log(index, row);
+            },
+            handleDelete(index, row) {
+                console.log(index, row);
+            }
+
+        }
+    })
+</script>
 </body>
 
 </html>

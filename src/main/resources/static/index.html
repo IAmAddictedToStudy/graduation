@@ -556,28 +556,49 @@
                         return false;
                     }
                 });
+
                 // this.interest=true;
             },
             zhuche(formName) {
-                console.log(this.form1);
+                var t = false;
+                //console.log(this.form1);
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
-                        this.form1 = {
-                            name: '',
-                            grade: '',
-                            college: '',
-                            major: '',
-                            password: '',
-                            surepassword: ''
-                        };
-                        this.dialogFormVisible1 = false;
+                        $.ajax({
+                            url: "/register",
+                            type: "post",
+                            async: false,
+                            data: {
+                                custStudentNumber: this.form1.name,
+                                custPassword: this.form1.password,
+                                custName: this.form1.username,
+                                custGrade: this.form1.grade,
+                                custAcademy: this.form1.college,
+                                custProfession: this.form1.major,
+                                custCharacter: this.form1.value
+                            },
+                            success: function (data) {
+                                if (data.resultCode === '200') {
+                                    layer.msg('注册成功');
+                                    t = true;
+                                } else {
+                                    layer.msg(data.resultMsg);
+                                }
+                            },
+                            error: function (data) {
+                                layer.msg('系统错误请稍后重试');
+                            }
+                        });
+
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
-
+                console.log(t);
+                if (t) {
+                    this.dialogFormVisible1 = false;
+                }
             },
             goActive() {
                 window.open('GreateActivities.html')
@@ -597,8 +618,6 @@
                     major: '',
                     password: '',
                     surepassword: ''
-
-
                 };
                 this.dialogFormVisible1 = false;
                 this.islogin = false;

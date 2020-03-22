@@ -1,8 +1,9 @@
 package com.example.graduation.repository;
 
-import com.example.graduation.bean.QueryMemberCustResponseBean;
-import com.example.graduation.repository.entity.MemberCustEntity;
-import com.example.graduation.repository.mysql.MemberCustMapper;
+import com.example.graduation.bean.QueryMemberActivityRequestBean;
+import com.example.graduation.bean.QueryMemberActivityResponseBean;
+import com.example.graduation.repository.entity.MemberActivityUniteEntity;
+import com.example.graduation.repository.mysql.MemberActivityMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,19 +21,22 @@ import java.util.List;
 @Repository
 public class MemberActivityRepository {
     @Autowired
-    MemberCustMapper memberCustMapper;
+    MemberActivityMapper memberActivityMapper;
 
-    public QueryMemberCustResponseBean queryMemberCustMapper() {
-        QueryMemberCustResponseBean queryMemberCustResponseBean = new QueryMemberCustResponseBean();
-        List<QueryMemberCustResponseBean.MemberCustBean> memberCustBeans = new ArrayList<>();
-        List<MemberCustEntity> memberCustEntities = memberCustMapper.selectAll();
-        memberCustEntities.forEach(memberCustEntity -> {
-            QueryMemberCustResponseBean.MemberCustBean memberCustBean = new QueryMemberCustResponseBean.MemberCustBean();
-            BeanUtils.copyProperties(memberCustEntity, memberCustBean);
-            memberCustBeans.add(memberCustBean);
+    public QueryMemberActivityResponseBean queryMemberActivityByCondition(QueryMemberActivityRequestBean requestBean) {
+        QueryMemberActivityResponseBean queryMemberActivityResponseBean = new QueryMemberActivityResponseBean();
+        List<QueryMemberActivityResponseBean.MemberActivityUniteEntity> memberActivityUniteEntities1 = new ArrayList<>();
+        MemberActivityUniteEntity memberActivityUniteEntity = new MemberActivityUniteEntity();
+        BeanUtils.copyProperties(requestBean, memberActivityUniteEntity);
+        List<MemberActivityUniteEntity> memberActivityUniteEntities = memberActivityMapper.queryMemberActivityByCondition(memberActivityUniteEntity);
+        memberActivityUniteEntities.forEach(memberActivityUniteEntity1 -> {
+            QueryMemberActivityResponseBean.MemberActivityUniteEntity memberActivityUniteEntity2 = new QueryMemberActivityResponseBean.MemberActivityUniteEntity();
+            BeanUtils.copyProperties(memberActivityUniteEntity1, memberActivityUniteEntity2);
+            memberActivityUniteEntities1.add(memberActivityUniteEntity2);
         });
-        queryMemberCustResponseBean.setMemberCustBeans(memberCustBeans);
-        return queryMemberCustResponseBean;
+        queryMemberActivityResponseBean.setMemberActivityUniteEntities(memberActivityUniteEntities1);
+        return queryMemberActivityResponseBean;
+
     }
 
 }
