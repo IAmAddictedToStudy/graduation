@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>福建师大</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./default.css">
+    <style>
+        #app {
+            height: 100%;
+        }
+
+        .el-header {
+            padding: 0;
+        }
+
+        .el-main {
+            padding: 0 0 20px 0;
+        }
+
+        #logo {
+            position: absolute;
+            top: 10px;
+            z-index: 99;
+            left: 80px;
+        }
+
+        .denlu {
+            position: absolute;
+            top: 10px;
+            z-index: 99;
+            right: 80px;
+        }
+
+        .el-carousel__item h3 {
+            color: #475669;
+            font-size: 14px;
+            opacity: 0.75;
+            line-height: 150px;
+            margin: 0;
+        }
+
+        .el-row {
+            margin-bottom: 20px;
+
+        }
+
+        .el-col {
+            border-radius: 4px;
+        }
+
+        .bg-purple-dark {
+            background: #99a9bf;
+        }
+
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+
+        .row-bg {
+            padding: 10px 0;
+            background-color: #f9fafc;
+        }
+
+        .grid-content .icons {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+        }
+
+        .grid-content .title {
+            font-size: 15px;
+            text-align: center;
+            font-weight: 800;
+            margin: 8px 0;
+        }
+
+        .grid-content {
+            color: #714cbf;
+            min-height: 80px;
+        }
+
+        .grid-content:hover {
+            color: #bf262e;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-header>
+            <el-menu
+                    :default-active="activeIndex2"
+                    class="el-menu-demo"
+                    mode="horizontal"
+                    @select="handleSelect"
+                    background-color="#545c64"
+                    text-color="#fff"
+                    active-text-color="#ffd04b">
+                <el-submenu index="1" style="margin: 0 0 0 100px">
+                    <template slot="title">平均型</template>
+                    <!--                    <el-menu-item index="1-1">性格判定</el-menu-item>-->
+                    <el-menu-item type="text" @click="dialogFormVisible2 = true">性格判定</el-menu-item>
+                    <el-menu-item index="1-2">兴趣信息录入</el-menu-item>
+                    <el-menu-item type="text" @click="chaungjianvibe=true" index="1-3">发起活动
+
+                    </el-menu-item>
+                    <el-submenu index="1-4">
+                        <template slot="title">加入活动</template>
+                        <el-menu-item index="1-4-1">福州森林公园踏青</el-menu-item>
+                        <el-menu-item index="1-4-2">滑板大赛</el-menu-item>
+                        <el-menu-item index="1-4-3">拳击夏令营</el-menu-item>
+                    </el-submenu>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">榜样型</template>
+                    <el-menu-item index="2-1">性格判定</el-menu-item>
+                    <el-menu-item index="2-2">兴趣信息录入</el-menu-item>
+                    <el-menu-item index="2-3">发起活动</el-menu-item>
+                    <el-submenu index="2-4">
+                        <template slot="title">活动列表</template>
+                        <el-menu-item index="2-4-1">活动1</el-menu-item>
+                        <el-menu-item index="2-4-2">活动2</el-menu-item>
+                        <el-menu-item index="2-4-3">活动3</el-menu-item>
+                    </el-submenu>
+                </el-submenu>
+                <el-submenu index="3">
+                    <template slot="title">保守型</template>
+                    <el-menu-item index="3-1">性格判定</el-menu-item>
+                    <el-menu-item index="3-2">兴趣信息录入</el-menu-item>
+                    <el-menu-item index="3-3">发起活动</el-menu-item>
+                    <el-submenu index="3-4">
+                        <template slot="title">活动列表</template>
+                        <el-menu-item index="3-4-1">活动1</el-menu-item>
+                        <el-menu-item index="3-4-2">活动2</el-menu-item>
+                        <el-menu-item index="3-4-3">活动3</el-menu-item>
+                    </el-submenu>
+                </el-submenu>
+                <el-submenu index="4">
+                    <template slot="title">自我为中心型</template>
+                    <el-menu-item index="4-1">性格判定</el-menu-item>
+                    <el-menu-item index="4-2">兴趣信息录入</el-menu-item>
+                    <el-menu-item index="4-3">发起活动</el-menu-item>
+                    <el-submenu index="4-4">
+                        <template slot="title">活动列表</template>
+                        <el-menu-item index="4-4-1">活动1</el-menu-item>
+                        <el-menu-item index="4-4-2">活动2</el-menu-item>
+                        <el-menu-item index="4-4-3">活动3</el-menu-item>
+                    </el-submenu>
+                </el-submenu>
+            </el-menu>
+            <div class="denlu" style="float: right">
+                <el-tag type="success" v-if="islogin">{{form.name}},欢迎你</el-tag>
+                <el-button v-if="!islogin" @click="open" type="primary">登录</el-button>
+                <el-button v-if="!islogin" @click="open1" type="success">注册</el-button>
+            </div>
+        </el-header>
+        <el-main>
+            <div>
+                <el-carousel indicator-position="outside">
+                    <el-carousel-item v-for="(item,index) in images" :key="index">
+                        <img style="width:100%;height:100%" :src="item.url"/>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <div style="width: 60%;margin-left: 20%;text-align: center">
+                <el-row :gutter="20">
+                    <el-col :span="6">
+                        <div class="grid-content bg-purple" @click="goActive">
+                            <img class="icons" src="./assetes/活动.png"/>
+                            <p class="title">加入活动</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content bg-purple" @click="chaungjianvibe=true">
+                            <img class="icons" src="./assetes/活动 2.png"/>
+                            <p class="title">创建活动</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content bg-purple" @click="ceping">
+                            <img class="icons" src="./assetes/CharacterTraits.png"/>
+                            <p class="title">性格测评</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content bg-purple" @click="GoGo">
+                            <img class="icons" src="./assetes/Complaint.png"/>
+                            <p class="title">推荐的活动</p>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="6">
+                        <div class="grid-content bg-purple">
+                            <img class="icons" src="./assetes/MuchMore.png"/>
+                            <p class="title">韩式烤肉团购优惠</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content bg-purple">
+                            <img class="icons" src="./assetes/新生.png"/>
+                            <p class="title">新生吉他半价</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content bg-purple">
+                            <img class="icons" src="./assetes/体育用品.png"/>
+                            <p class="title">世纪星文具</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content bg-purple" type="text" @click="interest = true">
+                            <img class="icons" src="./assetes/奇思妙想.png"/>
+                            <p class="title">兴趣录入</p>
+
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+        </el-main>
+        <el-footer style="position:absolute;bottom:0;width:100%;color:#f5f5f5;background: #000;text-align: center">
+            版权由福建师范大学所有@2020<br/>
+            京公网安备11000002000001号
+        </el-footer>
+    </el-container>
+    <el-dialog title="登录" :visible.sync="dialogFormVisible">
+        <el-form :model="form" ref="dengluFrom">
+            <el-form-item label="账号" :label-width="formLabelWidth" prop="name"
+                          :rules="[{ required: true, message: '账号不能为空'}]">
+                <el-input v-model="form.name" autocomplete="off" type="number"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" :label-width="formLabelWidth" prop="password"
+                          :rules="[{ required: true, message: '密码不能为空'}]">
+                <el-input type="password" v-model="form.password" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="Login('dengluFrom')">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog title="注册" :visible.sync="dialogFormVisible1">
+        <el-form :model="form1" ref="zucheForm">
+            <el-form-item label="年级" :label-width="formLabelWidth" prop="grade"
+                          :rules="[{ required: true, message: '请选择年级'}]">
+                <!--                <el-input v-model="form1.grade" autocomplete="off"></el-input>-->
+                <el-select v-model="form1.grade" placeholder="请选择" type="text">
+                    <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="学院" :label-width="formLabelWidth" prop="college"
+                          :rules="[{ required: true, message: '学院名称不能为空'}]">
+                <el-input v-model="form1.college" autocomplete="off" type="text"></el-input>
+            </el-form-item>
+            <el-form-item label="专业" :label-width="formLabelWidth" prop="major"
+                          :rules="[{ required: true, message: '专业名称不能为空'}]">
+                <el-input v-model="form1.major" autocomplete="off" type="text"></el-input>
+            </el-form-item>
+            <el-form-item label="姓名" :label-width="formLabelWidth" prop="username"
+                          :rules="[{ required: true, message: '姓名不能为空'}]">
+                <el-input v-model="form1.username" autocomplete="off" type="text"></el-input>
+            </el-form-item>
+            <el-form-item label="性格类型" :label-width="formLabelWidth" prop="value"
+                          :rules="[{ required: true, message: '请选择性格类型'}]">
+                <!--                <el-input v-model="form1.userxingge" autocomplete="off"></el-input>-->
+                <el-select v-model="form1.value" placeholder="请先前往性格测评网站进行测评" type="text">
+                    <el-option
+                            v-for="item in options1"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="学号" :label-width="formLabelWidth" prop="name"
+                          :rules="[{ required: true, message: '学号不能为空'}]">
+                <el-input v-model="form1.name" autocomplete="off" type="number"></el-input>
+            </el-form-item>
+            <el-form-item prop="password" :rules="[{ required: true, message: '密码不能为空'}]" label="密码"
+                          :label-width="formLabelWidth">
+                <el-input type="password" v-model="form1.password" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="确认密码" :label-width="formLabelWidth" prop="surepassword"
+                          :rules="[{ required: true, message: '确认密码不能为空'}]">
+                <el-input type="password" v-model="form1.surepassword" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="zhuchequxiao">取 消</el-button>
+            <el-button type="primary" @click="zhuche('zucheForm')">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog title="收货地址" :visible.sync="dialogFormVisible2">
+        <el-form :model="form2">
+            <el-form-item label="活动名称" :label-width="formLabelWidth">
+                <el-input v-model="form2.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="兴趣兴趣" :label-width="formLabelWidth">
+                <el-select v-model="form2.region" placeholder="请选择活动区域">
+                    <el-option label="区域一" value="shanghai"></el-option>
+                    <el-option label="区域二" value="beijing"></el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="xqluru">取 消</el-button>
+            <el-button type="primary" @click="xqluru">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog title="创建活动" :visible.sync="chaungjianvibe">
+        <el-form :model="chuangj_form">
+            <el-form-item label="活动名称" :label-width="formLabelWidth">
+                <el-input v-model="chuangj_form.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="规则" :label-width="formLabelWidth">
+                <el-input v-model="chuangj_form.rule" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动时间" :label-width="formLabelWidth">
+                <el-input v-model="chuangj_form.time" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动内容" :label-width="formLabelWidth">
+                <el-input v-model="chuangj_form.text" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动区域" :label-width="formLabelWidth">
+                <el-select v-model="chuangj_form.region" placeholder="请选择活动区域">
+                    <el-option label="校内" value="福建师范大学"></el-option>
+                    <el-option label="校外" value="福州"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="具体地点" :label-width="formLabelWidth">
+                <el-input v-model="chuangj_form.place" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="发起人/组织" :label-width="formLabelWidth">
+                <el-input v-model="chuangj_form.people" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="chaungjian">取 消</el-button>
+            <el-button type="primary" @click="chaungjian">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog title="兴趣录入" :visible.sync="interest">
+        <el-form :model="qingqueform" ref="qingqueform">
+            <el-form-item label="兴趣" :label-width="formLabelWidth" prop="name"
+                          :rules="[{ required: true, message: '兴趣不能为空'}]">
+                <el-input v-model="qingqueform.name" autocomplete="off" type="text"></el-input>
+            </el-form-item>
+            <!--            <el-form-item label="活动区域" :label-width="formLabelWidth">-->
+            <!--                <el-select v-model="form.region" placeholder="请选择活动区域">-->
+            <!--                    <el-option label="区域一" value="shanghai"></el-option>-->
+            <!--                    <el-option label="区域二" value="beijing"></el-option>-->
+            <!--                </el-select>-->
+            <!--            </el-form-item>-->
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="interest = false">取 消</el-button>
+            <el-button @click="()=>interestone('qingqueform')">确 定</el-button>
+        </div>
+    </el-dialog>
+</div>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="/layer/layer.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        mounted() {
+            axios.get('\'https://v1.jinrishici.com/all.json\'', {
+                params: {
+                    ID: 12345
+                }
+            })
+                .then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    this.data = res.data
+                });
+
+        },
+        data: function () {
+            return {
+                data: {},
+                interest: false,
+                qingqueform: {
+                    name: '',
+                },
+                islogin: false,
+                dialogVisible: false,
+                options1: [{
+                    value: '平均型',
+                    label: '平均型'
+                }, {
+                    value: '保守型',
+                    label: '保守型'
+                }, {
+                    value: '榜样型',
+                    label: '榜样型'
+                }, {
+                    value: '自我为中心型',
+                    label: '自我为中心型'
+                }],
+                value: '',
+
+                tables: [
+                    {name: '其实', date: '2020-02-03'},
+                    {name: '其实1', date: '2020-02-04'},
+                    {name: '其实2', date: '2020-02-05'},
+                    {name: '其实3', date: '2020-02-06'}
+                ],
+                images: [
+                    {
+                        index: 0,
+                        url: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1200524016,3386333024&fm=26&gp=0.jpg'
+                    },
+                    {
+                        index: 1,
+                        url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1035415831,1465727770&fm=26&gp=0.jpg'
+                    },
+                    {index: 2, url: 'http://img1.imgtn.bdimg.com/it/u=1258659760,2193329985&fm=26&gp=0.jpg'},
+                    {index: 3, url: 'http://img4.imgtn.bdimg.com/it/u=3310295053,3397875571&fm=26&gp=0.jpg'},
+                ],
+                visible: false,
+                activeIndex2: '1',
+                dialogFormVisible: false,
+                dialogFormVisible1: false,
+                chaungjianvibe: false,
+                gridData: [{
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }],
+                dialogTableVisible: false,
+                form: {
+                    name: '',
+                    password: ''
+                },
+                dialogFormVisible2: false,
+                form1: {
+                    name: '',
+                    grade: '',
+                    college: '',
+                    major: '',
+                    password: '',
+                    surepassword: '',
+                    username: '',
+                },
+                form2: {
+                    name2: '',
+                    region: '',
+                },
+                options: [{
+                    value: '2016',
+                    label: '2016级'
+                }, {
+                    value: '2017',
+                    label: '2017级'
+                }, {
+                    value: '2018',
+                    label: '2018级'
+                }, {
+                    value: '2019',
+                    label: '2019级'
+                }, {
+                    value: '2020',
+                    label: '2020级'
+                }],
+                chuangj_form: {
+                    name: '',
+                    people: '',
+                    rule: '',
+                    text: '',
+                    time: '',
+                    place: '',
+                    region: '',
+                },
+                formLabelWidth: '120px'
+            }
+        },
+        methods: {
+            Login(dengluFrom) {
+                var t = false;
+                this.$refs[dengluFrom].validate((valid) => {
+                    if (valid) {
+                        $.ajax({
+                            url: "/login",
+                            type: "post",
+                            async: false,
+                            data: {
+                                custStudentNumber: this.form.name,
+                                custPassword: this.form.password
+                            },
+                            success: function (data) {
+                                if (data.resultCode === '200') {
+                                    t = true;
+                                    layer.msg('登录成功');
+                                } else {
+                                    layer.msg(data.resultMsg);
+                                }
+                            },
+                            error: function (data) {
+                                layer.msg('系统错误请稍后重试');
+                            }
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+                if (t) {
+                    this.dialogFormVisible = false;
+                    this.islogin = true;
+                }
+
+            },
+            interestone(luruFrom) {
+                console.log(this.qingqueform);
+                this.$refs[luruFrom].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                        this.qingqueform = {
+                            name: '',
+
+                        };
+                        this.interest = false;
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+                // this.interest=true;
+            },
+            zhuche(formName) {
+                console.log(this.form1);
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                        this.form1 = {
+                            name: '',
+                            grade: '',
+                            college: '',
+                            major: '',
+                            password: '',
+                            surepassword: ''
+                        };
+                        this.dialogFormVisible1 = false;
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+
+            },
+            goActive() {
+                window.open('GreateActivities.html')
+            },
+            GoGo() {
+                window.open('PersonalityAssessment.html')
+            },
+            ceping() {
+                window.open('https://types.yuzeli.com/survey/mbti24')
+            },
+            zhuchequxiao() {
+                console.log(this.form1);
+                this.form1 = {
+                    name: '',
+                    grade: '',
+                    college: '',
+                    major: '',
+                    password: '',
+                    surepassword: ''
+
+
+                };
+                this.dialogFormVisible1 = false;
+                this.islogin = false;
+            },
+            xqluru() {
+                console.log(this.form2)
+                this.form2 = {
+                    name: '',
+                    region: '',
+                };
+                this.dialogFormVisible2 = false;
+            },
+            chaungjian() {
+                console.log(this.chuangj_form)
+                this.chuangj_form = {
+                    name: '',
+                    people: '',
+                    rule: '',
+                    text: '',
+                    time: '',
+                    place: '',
+                    region: '',
+                }
+                this.chaungjianvibe = false;
+            },
+
+
+            handleSelect() {
+
+            },
+            handleOpen() {
+
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            open() {
+                this.dialogFormVisible = true;
+            },
+            open1() {
+                this.dialogFormVisible1 = true;
+            }
+        }
+    })
+</script>
+</body>
+</html>
