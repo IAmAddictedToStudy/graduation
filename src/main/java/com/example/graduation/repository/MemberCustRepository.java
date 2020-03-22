@@ -1,8 +1,5 @@
 package com.example.graduation.repository;
 
-import com.example.graduation.bean.MemberCustBean;
-import com.example.graduation.bean.MemberCustLoginRequestBean;
-import com.example.graduation.bean.QueryMemberCustRequestBean;
 import com.example.graduation.bean.QueryMemberCustResponseBean;
 import com.example.graduation.repository.entity.MemberCustEntity;
 import com.example.graduation.repository.mysql.MemberCustMapper;
@@ -38,44 +35,20 @@ public class MemberCustRepository {
         return queryMemberCustResponseBean;
     }
 
-    public MemberCustBean login(MemberCustLoginRequestBean memberCustLoginRequestBean) throws Exception {
-        MemberCustBean memberCustBean = new MemberCustBean();
-        MemberCustEntity memberCustEntity = new MemberCustEntity();
-        memberCustEntity.setCustStudentNumber(memberCustLoginRequestBean.getCustStudentNumber());
-        memberCustEntity.setCustPassword(memberCustLoginRequestBean.getCustPassword());
-        List<MemberCustEntity> select = memberCustMapper.select(memberCustEntity);
-        if (select.size() <= 0) {
-            throw new Exception();
-        }
-        BeanUtils.copyProperties(select.get(0), memberCustBean);
-        return memberCustBean;
+    public List<MemberCustEntity> login(MemberCustEntity memberCustEntity) throws Exception {
+        return memberCustMapper.select(memberCustEntity);
     }
 
-    public int register(MemberCustBean memberCustBean) throws Exception {
-        MemberCustEntity memberCustEntity = new MemberCustEntity();
-        memberCustEntity.setCustStudentNumber(memberCustBean.getCustStudentNumber());
-        List<MemberCustEntity> select = memberCustMapper.select(memberCustEntity);
-        if (select.size() > 0) {
-            throw new Exception("学号已存在");
-        }
-        BeanUtils.copyProperties(memberCustBean, memberCustEntity);
-        return memberCustMapper.insert(memberCustEntity);
+    public int register(MemberCustEntity entity) throws Exception {
+        return memberCustMapper.insert(entity);
     }
 
-    public QueryMemberCustResponseBean queryMemberCust(QueryMemberCustRequestBean queryMemberCustRequestBean) {
-        QueryMemberCustResponseBean queryMemberCustResponseBean = new QueryMemberCustResponseBean();
-        List<QueryMemberCustResponseBean.MemberCustBean> memberCustBeans = new ArrayList<>();
-        MemberCustEntity memberCustEntity = new MemberCustEntity();
-        BeanUtils.copyProperties(queryMemberCustRequestBean, memberCustEntity);
-        List<MemberCustEntity> select = memberCustMapper.select(memberCustEntity);
-        //拷贝数据
-        select.forEach(memberCustEntity1 -> {
-            QueryMemberCustResponseBean.MemberCustBean memberCustBean = new QueryMemberCustResponseBean.MemberCustBean();
-            BeanUtils.copyProperties(memberCustEntity1, memberCustBean);
-            memberCustBeans.add(memberCustBean);
-        });
-        queryMemberCustResponseBean.setMemberCustBeans(memberCustBeans);
-        return queryMemberCustResponseBean;
+    public List<MemberCustEntity> select(MemberCustEntity entity) throws Exception {
+        return memberCustMapper.select(entity);
+    }
+
+    public List<MemberCustEntity> queryMemberCust(MemberCustEntity memberCustEntity) {
+        return memberCustMapper.select(memberCustEntity);
     }
 
 }

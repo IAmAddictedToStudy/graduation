@@ -19,7 +19,7 @@ import javax.validation.Valid;
  * @Created by LiaoFuQin
  */
 @RestController
-public class MemberController extends BaseController {
+public class MemberCustController extends BaseController {
     @Autowired
     MemberService memberService;
 

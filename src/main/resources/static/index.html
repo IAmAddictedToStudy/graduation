@@ -88,6 +88,34 @@
         .grid-content:hover {
             color: #bf262e;
         }
+
+        .el-dropdown {
+            vertical-align: top;
+        }
+
+        .el-dropdown + .el-dropdown {
+            margin-left: 15px;
+        }
+
+        .el-icon-arrow-down {
+            font-size: 12px;
+        }
+
+        .demo-table-expand {
+            font-size: 0;
+        }
+
+        .demo-table-expand label {
+            width: 90px;
+            color: #99a9bf;
+        }
+
+        .demo-table-expand .el-form-item {
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+        }
+
     </style>
 </head>
 <body>
@@ -155,7 +183,17 @@
                 </el-submenu>
             </el-menu>
             <div class="denlu" style="float: right">
-                <el-tag type="success" v-if="islogin">{{form.name}},欢迎你</el-tag>
+                <!--                <el-tag type="success" v-if="islogin">{{form.name}},欢迎你</el-tag>-->
+                <el-dropdown split-button type="primary" @click="handleClick" v-if="islogin">
+                    更多菜单
+                    <el-dropdown-menu slot="dropdown">
+                        <el-button type="text" @click="myactivity = true">我的活动</el-button>
+                        <el-dropdown-item>1</el-dropdown-item>
+                        <el-dropdown-item>2</el-dropdown-item>
+                        <el-dropdown-item>3</el-dropdown-item>
+                        <el-dropdown-item>4</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
                 <el-button v-if="!islogin" @click="open" type="primary">登录</el-button>
                 <el-button v-if="!islogin" @click="open1" type="success">注册</el-button>
             </div>
@@ -285,7 +323,8 @@
             </el-form-item>
             <el-form-item label="学号" :label-width="formLabelWidth" prop="name"
                           :rules="[{ required: true, message: '学号不能为空'}]">
-                <el-input v-model="form1.name" autocomplete="off" type="number"></el-input>
+                <el-input show-word-limit validate-event maxlength="11" minlength="11"
+                          v-model="form1.name" autocomplete="off" type="number"></el-input>
             </el-form-item>
             <el-form-item prop="password" :rules="[{ required: true, message: '密码不能为空'}]" label="密码"
                           :label-width="formLabelWidth">
@@ -368,6 +407,64 @@
             <el-button @click="()=>interestone('qingqueform')">确 定</el-button>
         </div>
     </el-dialog>
+    <el-dialog title="我的活动" :visible.sync="myactivity">
+        <el-table
+                :data="tableData"
+                style="width: 100%">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+                        <el-form-item label="商品名称">
+                            <span>{{ props.row.name }}</span>
+                        </el-form-item>
+                        <el-form-item label="所属店铺">
+                            <span>{{ props.row.shop }}</span>
+                        </el-form-item>
+                        <el-form-item label="商品 ID">
+                            <span>{{ props.row.id }}</span>
+                        </el-form-item>
+                        <el-form-item label="店铺 ID">
+                            <span>{{ props.row.shopId }}</span>
+                        </el-form-item>
+                        <el-form-item label="商品分类">
+                            <span>{{ props.row.category }}</span>
+                        </el-form-item>
+                        <el-form-item label="店铺地址">
+                            <span>{{ props.row.address }}</span>
+                        </el-form-item>
+                        <el-form-item label="商品描述">
+                            <span>{{ props.row.desc }}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="商品 ID"
+                    prop="id">
+            </el-table-column>
+            <el-table-column
+                    label="商品名称"
+                    prop="name">
+            </el-table-column>
+            <el-table-column
+                    label="描述"
+                    prop="desc">
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="handleEdit(scope.$index, scope.row)">编辑
+                    </el-button>
+                    <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleDelete(scope.$index, scope.row)">删除
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </el-dialog>
 </div>
 
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -397,6 +494,40 @@
         data: function () {
             return {
                 data: {},
+                myactivity: false,
+                tableData: [{
+                    id: '12987122',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }, {
+                    id: '12987123',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }, {
+                    id: '12987125',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }, {
+                    id: '12987126',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }],
                 interest: false,
                 qingqueform: {
                     name: '',
@@ -541,6 +672,9 @@
                 }
 
             },
+            handleClick() {
+                alert('button click');
+            },
             interestone(luruFrom) {
                 console.log(this.qingqueform);
                 this.$refs[luruFrom].validate((valid) => {
@@ -556,12 +690,21 @@
                         return false;
                     }
                 });
-
                 // this.interest=true;
             },
             zhuche(formName) {
                 var t = false;
                 //console.log(this.form1);
+                if (this.form1.password !== this.form1.surepassword) {
+                    const h = this.$createElement;
+
+                    this.$notify({
+                        title: '错误提示',
+                        message: h('i', {style: 'color: teal'}, '两次密码输入不一致，请重新输入！')
+                    });
+                    return;
+                }
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         $.ajax({
@@ -618,6 +761,8 @@
                     major: '',
                     password: '',
                     surepassword: ''
+
+
                 };
                 this.dialogFormVisible1 = false;
                 this.islogin = false;
@@ -642,6 +787,12 @@
                     region: '',
                 }
                 this.chaungjianvibe = false;
+            },
+            handleEdit(index, row) {
+                console.log(index, row);
+            },
+            handleDelete(index, row) {
+                console.log(index, row);
             },
 
 
