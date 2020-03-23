@@ -92,47 +92,44 @@
                 </div>
                 <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
                     <el-table
-                            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                            :data="tableData"
+                            :data="tableData1.filter(data => !search || data.activityName.toLowerCase().includes(search.toLowerCase()))"
+                            :data="tableData1"
                             style="width: 100%">
                         <el-table-column type="expand">
                             <template slot-scope="props">
                                 <el-form label-position="left" inline class="demo-table-expand">
-                                    <el-form-item label="商品名称">
-                                        <span>{{ props.row.name }}</span>
+                                    <el-form-item label="活动名">
+                                        <span>{{ props.row.activityName }}</span>
                                     </el-form-item>
-                                    <el-form-item label="所属店铺">
-                                        <span>{{ props.row.shop }}</span>
+                                    <el-form-item label="活动规则">
+                                        <span>{{ props.row.activityRole }}</span>
                                     </el-form-item>
-                                    <el-form-item label="商品 ID">
-                                        <span>{{ props.row.id }}</span>
+                                    <el-form-item label="活动时间">
+                                        <span>{{ props.row.activityTime }}</span>
                                     </el-form-item>
-                                    <el-form-item label="店铺 ID">
-                                        <span>{{ props.row.shopId }}</span>
+                                    <el-form-item label="活动地区">
+                                        <span>{{ props.row.activityArea }}</span>
                                     </el-form-item>
-                                    <el-form-item label="商品分类">
-                                        <span>{{ props.row.category }}</span>
+                                    <el-form-item label="活动地点">
+                                        <span>{{ props.row.activitySite }}</span>
                                     </el-form-item>
-                                    <el-form-item label="店铺地址">
-                                        <span>{{ props.row.address }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="商品描述">
-                                        <span>{{ props.row.desc }}</span>
+                                    <el-form-item label="活动内容">
+                                        <span>{{ props.row.activityContent }}</span>
                                     </el-form-item>
                                 </el-form>
                             </template>
                         </el-table-column>
                         <el-table-column
-                                label="商品 ID"
+                                label="ID"
                                 prop="id">
                         </el-table-column>
                         <el-table-column
-                                label="商品名称"
-                                prop="name">
+                                label="活动名"
+                                prop="activityName">
                         </el-table-column>
                         <el-table-column
-                                label="描述"
-                                prop="desc">
+                                label="活动规则"
+                                prop="activityRole">
                         </el-table-column>
                         <el-table-column
                                 align="right">
@@ -140,7 +137,7 @@
                                 <el-input
                                         v-model="search"
                                         size="mini"
-                                        placeholder="输入关键字搜索"/>
+                                        placeholder="输入关键字搜索"></el-input>
                             </template>
                             <template slot-scope="scope">
                                 <el-button
@@ -166,47 +163,44 @@
                     </div>
                     <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
                         <el-table
-                                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                                :data="tableData"
+                                :data="tableData2.filter(data => !search || activityName.name.toLowerCase().includes(search.toLowerCase()))"
+                                :data="tableData2"
                                 style="width: 100%">
                             <el-table-column type="expand">
                                 <template slot-scope="props">
                                     <el-form label-position="left" inline class="demo-table-expand">
-                                        <el-form-item label="商品名称">
-                                            <span>{{ props.row.name }}</span>
+                                        <el-form-item label="活动名">
+                                            <span>{{ props.row.activityName }}</span>
                                         </el-form-item>
-                                        <el-form-item label="所属店铺">
-                                            <span>{{ props.row.shop }}</span>
+                                        <el-form-item label="活动规则">
+                                            <span>{{ props.row.activityRole }}</span>
                                         </el-form-item>
-                                        <el-form-item label="商品 ID">
-                                            <span>{{ props.row.id }}</span>
+                                        <el-form-item label="活动时间">
+                                            <span>{{ props.row.activityTime }}</span>
                                         </el-form-item>
-                                        <el-form-item label="店铺 ID">
-                                            <span>{{ props.row.shopId }}</span>
+                                        <el-form-item label="活动地区">
+                                            <span>{{ props.row.activityArea }}</span>
                                         </el-form-item>
-                                        <el-form-item label="商品分类">
-                                            <span>{{ props.row.category }}</span>
+                                        <el-form-item label="活动地点">
+                                            <span>{{ props.row.activitySite }}</span>
                                         </el-form-item>
-                                        <el-form-item label="店铺地址">
-                                            <span>{{ props.row.address }}</span>
-                                        </el-form-item>
-                                        <el-form-item label="商品描述">
-                                            <span>{{ props.row.desc }}</span>
+                                        <el-form-item label="活动内容">
+                                            <span>{{ props.row.activityContent }}</span>
                                         </el-form-item>
                                     </el-form>
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                    label="商品 ID"
+                                    label="ID"
                                     prop="id">
                             </el-table-column>
                             <el-table-column
-                                    label="商品名称"
-                                    prop="name">
+                                    label="活动名"
+                                    prop="activityName">
                             </el-table-column>
                             <el-table-column
-                                    label="描述"
-                                    prop="desc">
+                                    label="活动规则"
+                                    prop="activityRole">
                             </el-table-column>
                             <el-table-column
                                     align="right">
@@ -214,7 +208,7 @@
                                     <el-input
                                             v-model="search"
                                             size="mini"
-                                            placeholder="输入关键字搜索"/>
+                                            placeholder="输入关键字搜索"></el-input>
                                 </template>
                                 <template slot-scope="scope">
                                     <el-button
@@ -242,47 +236,44 @@
                     </div>
                     <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
                         <el-table
-                                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                                :data="tableData3.filter(data => !search || data.activityName.toLowerCase().includes(search.toLowerCase()))"
                                 :data="tableData"
                                 style="width: 100%">
                             <el-table-column type="expand">
                                 <template slot-scope="props">
                                     <el-form label-position="left" inline class="demo-table-expand">
-                                        <el-form-item label="商品名称">
-                                            <span>{{ props.row.name }}</span>
+                                        <el-form-item label="活动名">
+                                            <span>{{ props.row.activityName }}</span>
                                         </el-form-item>
-                                        <el-form-item label="所属店铺">
-                                            <span>{{ props.row.shop }}</span>
+                                        <el-form-item label="活动规则">
+                                            <span>{{ props.row.activityRole }}</span>
                                         </el-form-item>
-                                        <el-form-item label="商品 ID">
-                                            <span>{{ props.row.id }}</span>
+                                        <el-form-item label="活动时间">
+                                            <span>{{ props.row.activityTime }}</span>
                                         </el-form-item>
-                                        <el-form-item label="店铺 ID">
-                                            <span>{{ props.row.shopId }}</span>
+                                        <el-form-item label="活动地区">
+                                            <span>{{ props.row.activityArea }}</span>
                                         </el-form-item>
-                                        <el-form-item label="商品分类">
-                                            <span>{{ props.row.category }}</span>
+                                        <el-form-item label="活动地点">
+                                            <span>{{ props.row.activitySite }}</span>
                                         </el-form-item>
-                                        <el-form-item label="店铺地址">
-                                            <span>{{ props.row.address }}</span>
-                                        </el-form-item>
-                                        <el-form-item label="商品描述">
-                                            <span>{{ props.row.desc }}</span>
+                                        <el-form-item label="活动内容">
+                                            <span>{{ props.row.activityContent }}</span>
                                         </el-form-item>
                                     </el-form>
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                    label="商品 ID"
+                                    label="ID"
                                     prop="id">
                             </el-table-column>
                             <el-table-column
-                                    label="商品名称"
-                                    prop="name">
+                                    label="活动名"
+                                    prop="activityName">
                             </el-table-column>
                             <el-table-column
-                                    label="描述"
-                                    prop="desc">
+                                    label="活动规则"
+                                    prop="activityRole">
                             </el-table-column>
                             <el-table-column
                                     align="right">
@@ -290,7 +281,7 @@
                                     <el-input
                                             v-model="search"
                                             size="mini"
-                                            placeholder="输入关键字搜索"/>
+                                            placeholder="输入关键字搜索"></el-input>
                                 </template>
                                 <template slot-scope="scope">
                                     <el-button
@@ -316,47 +307,44 @@
                     </div>
                     <div style="width: 100vh;height:100vh;text-align: center;margin: 0 auto">
                         <el-table
-                                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                                :data="tableData"
+                                :data="tableData4.filter(data => !search || data.activityName.toLowerCase().includes(search.toLowerCase()))"
+                                :data="tableData4"
                                 style="width: 100%">
                             <el-table-column type="expand">
                                 <template slot-scope="props">
                                     <el-form label-position="left" inline class="demo-table-expand">
-                                        <el-form-item label="商品名称">
-                                            <span>{{ props.row.name }}</span>
+                                        <el-form-item label="活动名">
+                                            <span>{{ props.row.activityName }}</span>
                                         </el-form-item>
-                                        <el-form-item label="所属店铺">
-                                            <span>{{ props.row.shop }}</span>
+                                        <el-form-item label="活动规则">
+                                            <span>{{ props.row.activityRole }}</span>
                                         </el-form-item>
-                                        <el-form-item label="商品 ID">
-                                            <span>{{ props.row.id }}</span>
+                                        <el-form-item label="活动时间">
+                                            <span>{{ props.row.activityTime }}</span>
                                         </el-form-item>
-                                        <el-form-item label="店铺 ID">
-                                            <span>{{ props.row.shopId }}</span>
+                                        <el-form-item label="活动地区">
+                                            <span>{{ props.row.activityArea }}</span>
                                         </el-form-item>
-                                        <el-form-item label="商品分类">
-                                            <span>{{ props.row.category }}</span>
+                                        <el-form-item label="活动地点">
+                                            <span>{{ props.row.activitySite }}</span>
                                         </el-form-item>
-                                        <el-form-item label="店铺地址">
-                                            <span>{{ props.row.address }}</span>
-                                        </el-form-item>
-                                        <el-form-item label="商品描述">
-                                            <span>{{ props.row.desc }}</span>
+                                        <el-form-item label="活动内容">
+                                            <span>{{ props.row.activityContent }}</span>
                                         </el-form-item>
                                     </el-form>
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                    label="商品 ID"
+                                    label="ID"
                                     prop="id">
                             </el-table-column>
                             <el-table-column
-                                    label="商品名称"
-                                    prop="name">
+                                    label="活动名"
+                                    prop="activityName">
                             </el-table-column>
                             <el-table-column
-                                    label="描述"
-                                    prop="desc">
+                                    label="活动规则"
+                                    prop="activityRole">
                             </el-table-column>
                             <el-table-column
                                     align="right">
@@ -364,7 +352,7 @@
                                     <el-input
                                             v-model="search"
                                             size="mini"
-                                            placeholder="输入关键字搜索"/>
+                                            placeholder="输入关键字搜索"></el-input>
                                 </template>
                                 <template slot-scope="scope">
                                     <el-button
@@ -427,11 +415,44 @@
 </div>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <script>
+    var tableData1 = [];
+    var tableData2 = [];
+    var tableData3 = [];
+    var tableData4 = [];
+    $.ajax({
+        url: "/queryMemberActivityByCondition",
+        type: "post",
+        async: false,
+        data: {},
+        success: function (data) {
+            if (data.resultCode === '200') {
+                for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
+                    if (data.data.memberActivityUniteEntities[i].custCharacter === '平均型') {
+                        tableData1.push(data.data.memberActivityUniteEntities[i]);
+                    } else if (data.data.memberActivityUniteEntities[i].custCharacter === '保守型') {
+                        tableData2.push(data.data.memberActivityUniteEntities[i]);
+                    } else if (data.data.memberActivityUniteEntities[i].custCharacter === '和平型') {
+                        tableData3.push(data.data.memberActivityUniteEntities[i]);
+                    } else if (data.data.memberActivityUniteEntities[i].custCharacter === '自我中心型') {
+                        tableData4.push(data.data.memberActivityUniteEntities[i]);
+                    }
+                }
+                console.log(tableData1);
+            } else {
+                layer.msg(data.resultMsg);
+            }
+        },
+        error: function (data) {
+            layer.msg('系统错误请稍后重试');
+        }
+    });
+
+
     new Vue({
         el: '#app',
         data: function () {
-
             return {
                 dialogFormVisible: false,
                 chaungjianvibe: false,
@@ -456,44 +477,13 @@
                     desc: ''
                 },
 
-
                 activeIndex: '1',
                 activeIndex2: '1',
                 search: '',
-                tableData: [{
-                    id: '12987122',
-                    name: '不好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }, {
-                    id: '12987123',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }, {
-                    id: '12987125',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }, {
-                    id: '12987126',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }],
-
+                tableData1: tableData1,
+                tableData2: tableData2,
+                tableData3: tableData3,
+                tableData4: tableData4,
             }
         },
         methods: {
@@ -523,10 +513,10 @@
 
             },
             handleEdit(index, row) {
-                console.log(index, row);
+
             },
             handleDelete(index, row) {
-                console.log(index, row);
+
             }
 
         }

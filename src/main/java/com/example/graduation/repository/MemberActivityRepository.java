@@ -1,5 +1,6 @@
 package com.example.graduation.repository;
 
+import com.example.graduation.repository.entity.MemberActivityEntity;
 import com.example.graduation.repository.entity.MemberActivityUniteEntity;
 import com.example.graduation.repository.mysql.MemberActivityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class MemberActivityRepository {
 
     public List<MemberActivityUniteEntity> queryMemberActivityByCondition(MemberActivityUniteEntity requestBean) {
         return memberActivityMapper.queryMemberActivityByCondition(requestBean);
+    }
+
+    public int insertMemberActivity(MemberActivityEntity entity) {
+        return memberActivityMapper.insertMemberActivity(entity);
     }
 
 }

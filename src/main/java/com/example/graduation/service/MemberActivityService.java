@@ -1,8 +1,10 @@
 package com.example.graduation.service;
 
+import com.example.graduation.bean.MemberActivityBean;
 import com.example.graduation.bean.QueryMemberActivityRequestBean;
 import com.example.graduation.bean.QueryMemberActivityResponseBean;
 import com.example.graduation.repository.MemberActivityRepository;
+import com.example.graduation.repository.entity.MemberActivityEntity;
 import com.example.graduation.repository.entity.MemberActivityUniteEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +38,14 @@ public class MemberActivityService {
         });
         queryMemberActivityResponseBean.setMemberActivityUniteEntities(memberActivityUniteEntities1);
         return queryMemberActivityResponseBean;
+    }
+
+    public void insertMemberActivity(MemberActivityBean memberActivityBean) throws Exception {
+        MemberActivityEntity memberActivityEntity = new MemberActivityEntity();
+        BeanUtils.copyProperties(memberActivityBean, memberActivityEntity);
+        int i = repository.insertMemberActivity(memberActivityEntity);
+        if (i <= 0) {
+            throw new Exception("添加活动失败，请稍后重试");
+        }
     }
 }

@@ -1,11 +1,8 @@
-package com.example.graduation.repository.entity;
+package com.example.graduation.bean;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author LiaoFuQin
@@ -14,20 +11,22 @@ import javax.persistence.Table;
  * @Date 2020/3/21 20:04
  * @Created by LiaoFuQin
  */
-@Builder
+
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "member_activity")
-public class MemberActivityUniteEntity {
+public class MemberActivityBean {
     private Long id;
+    @NotEmpty(message = "活动名不能为空")
     private String activityName;
+    @NotEmpty(message = "活动规则不能为空")
     private String activityRole;
+    @NotEmpty(message = "活动时间不能为空")
     private String activityTime;
     private String activityEndTime;
+    @NotEmpty(message = "活动地区不能为空")
     private String activityArea;
+    @NotEmpty(message = "活动地点不能为空")
     private String activitySite;
     private String activityCreator;
-    private String custCharacter;
+    @NotEmpty(message = "活动内容不能为空")
     private String activityContent;
 }

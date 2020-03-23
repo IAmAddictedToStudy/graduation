@@ -26,6 +26,7 @@ public class QueryMemberActivityResponseBean {
         private String activitySite;
         private String activityCreator;
         private String custCharacter;
+        private String activityContent;
     }
 
 }

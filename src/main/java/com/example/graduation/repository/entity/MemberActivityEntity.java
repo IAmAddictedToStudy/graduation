@@ -28,4 +28,5 @@ public class MemberActivityEntity {
     private String activityArea;
     private String activitySite;
     private String activityCreator;
+    private String activityContent;
 }
