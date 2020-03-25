@@ -105,6 +105,7 @@
                                         <span>{{ props.row.activityRole }}</span>
                                     </el-form-item>
                                     <el-form-item label="活动时间">
+                                    <el-form-item label="活动时间">
                                         <span>{{ props.row.activityTime }}</span>
                                     </el-form-item>
                                     <el-form-item label="活动地区">
@@ -281,7 +282,7 @@
                                     <el-input
                                             v-model="search"
                                             size="mini"
-                                            placeholder="输入关键字搜索"></el-input>
+                                            placeholder="输入关键字搜索"/>
                                 </template>
                                 <template slot-scope="scope">
                                     <el-button
@@ -296,6 +297,7 @@
                                 </template>
                             </el-table-column>
                         </el-table>
+                        <el-button type="info" @click="chaungjianvibe=true">创建</el-button>
                     </div>
                 </div>
             </div>
@@ -413,6 +415,7 @@
         </div>
     </el-dialog>
 </div>
+<script src="./layer/layer.js"></script>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
@@ -453,6 +456,7 @@
     new Vue({
         el: '#app',
         data: function () {
+
             return {
                 dialogFormVisible: false,
                 chaungjianvibe: false,
@@ -476,6 +480,7 @@
                     resource: '',
                     desc: ''
                 },
+
 
                 activeIndex: '1',
                 activeIndex2: '1',
@@ -513,10 +518,29 @@
 
             },
             handleEdit(index, row) {
+                $.ajax({
+                    url: "/insertActivityRegistration",
+                    type: "post",
+                    async: false,
+                    data: {
+                        activityId: row.id,
+                    },
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            alert('活动报名成功');
+                        } else {
+                            alert(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
+                // alert(index, row);
 
             },
             handleDelete(index, row) {
-
+                console.log(index, row);
             }
 
         }

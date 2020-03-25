@@ -25,6 +25,9 @@ public class MemberActivityProvider {
             if (StringUtils.isNotBlank(requestEntity.getCustCharacter())) {
                 WHERE(" mc.cust_character=#{custCharacter} ");
             }
+            if (requestEntity.getId() != null) {
+                WHERE(" ma.id=#{id} ");
+            }
         }}.toString();
     }
 
@@ -53,6 +56,31 @@ public class MemberActivityProvider {
             if (StringUtils.isNotBlank(entity.getActivityCreator())) {
                 VALUES("activity_creator", "#{activityCreator}");
             }
+        }}.toString();
+    }
+
+    public String updateMemberActivity(MemberActivityEntity entity) {
+        return new SQL() {{
+            UPDATE("member_activity");
+            if (StringUtils.isNotBlank(entity.getActivityTime())) {
+                SET("activity_Time=#{activityTime}");
+            }
+            if (StringUtils.isNotBlank(entity.getActivityContent())) {
+                SET("activity_Content=#{activityContent}");
+            }
+            if (StringUtils.isNotBlank(entity.getActivityArea())) {
+                SET("activity_Area=#{activityArea}");
+            }
+            if (StringUtils.isNotBlank(entity.getActivityRole())) {
+                SET("activity_Role=#{activityRole}");
+            }
+            if (StringUtils.isNotBlank(entity.getActivityName())) {
+                SET("activity_Name=#{activityName}");
+            }
+            if (StringUtils.isNotBlank(entity.getActivitySite())) {
+                SET("activity_Site=#{activitySite}");
+            }
+            WHERE("id=#{id}");
         }}.toString();
     }
 

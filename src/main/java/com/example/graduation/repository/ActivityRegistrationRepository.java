@@ -26,4 +26,5 @@ public class ActivityRegistrationRepository {
     public List<ActivityRegistrationEntity> select(ActivityRegistrationEntity entity) {
         return activityRegistrationMapper.select(entity);
     }
+
 }

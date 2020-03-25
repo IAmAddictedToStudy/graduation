@@ -115,7 +115,6 @@
             margin-bottom: 0;
             width: 50%;
         }
-
     </style>
 </head>
 <body>
@@ -183,7 +182,7 @@
                 </el-submenu>
             </el-menu>
             <div class="denlu" style="float: right">
-                <!--                <el-tag type="success" v-if="islogin">{{form.name}},欢迎你</el-tag>-->
+                <!--                <el-tag type="success" v-if="islogin">{{form.name}},欢饮你</el-tag>-->
                 <el-dropdown split-button type="primary" @click="handleClick" v-if="islogin">
                     更多菜单
                     <el-dropdown-menu slot="dropdown">
@@ -271,7 +270,8 @@
         <el-form :model="form" ref="dengluFrom">
             <el-form-item label="账号" :label-width="formLabelWidth" prop="name"
                           :rules="[{ required: true, message: '账号不能为空'}]">
-                <el-input v-model="form.name" autocomplete="off" type="number"></el-input>
+                <el-input v-model="form.name" autocomplete="off" type="string" show-word-limit validate-event
+                          maxlength="12" minlength="12"></el-input>
             </el-form-item>
             <el-form-item label="密码" :label-width="formLabelWidth" prop="password"
                           :rules="[{ required: true, message: '密码不能为空'}]">
@@ -312,7 +312,7 @@
             <el-form-item label="性格类型" :label-width="formLabelWidth" prop="value"
                           :rules="[{ required: true, message: '请选择性格类型'}]">
                 <!--                <el-input v-model="form1.userxingge" autocomplete="off"></el-input>-->
-                <el-select v-model="form1.value" placeholder="请先前往性格测评网站进行测评" type="text">
+                <el-select v-model="form1.value" placeholder="请选择" type="text">
                     <el-option
                             v-for="item in options1"
                             :key="item.value"
@@ -323,8 +323,8 @@
             </el-form-item>
             <el-form-item label="学号" :label-width="formLabelWidth" prop="name"
                           :rules="[{ required: true, message: '学号不能为空'}]">
-                <el-input show-word-limit validate-event maxlength="11" minlength="11"
-                          v-model="form1.name" autocomplete="off" type="number"></el-input>
+                <el-input maxlength="12" minlength="12"
+                          v-model="form1.name" autocomplete="off" type="String"></el-input>
             </el-form-item>
             <el-form-item prop="password" :rules="[{ required: true, message: '密码不能为空'}]" label="密码"
                           :label-width="formLabelWidth">
@@ -366,7 +366,7 @@
                 <el-input v-model="chuangj_form.rule" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="活动时间" :label-width="formLabelWidth">
-                <el-input v-model="chuangj_form.time" autocomplete="off"></el-input>
+                <el-input v-model="chuangj_form.time" type="date" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="活动内容" :label-width="formLabelWidth">
                 <el-input v-model="chuangj_form.text" autocomplete="off"></el-input>
@@ -380,12 +380,9 @@
             <el-form-item label="具体地点" :label-width="formLabelWidth">
                 <el-input v-model="chuangj_form.place" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="发起人/组织" :label-width="formLabelWidth">
-                <el-input v-model="chuangj_form.people" autocomplete="off"></el-input>
-            </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="chaungjian">取 消</el-button>
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
             <el-button type="primary" @click="chaungjian">确 定</el-button>
         </div>
     </el-dialog>
@@ -414,43 +411,46 @@
             <el-table-column type="expand">
                 <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
-                        <el-form-item label="商品名称">
-                            <span>{{ props.row.name }}</span>
-                        </el-form-item>
-                        <el-form-item label="所属店铺">
-                            <span>{{ props.row.shop }}</span>
-                        </el-form-item>
-                        <el-form-item label="商品 ID">
+                        <el-form-item label="活动id">
                             <span>{{ props.row.id }}</span>
                         </el-form-item>
-                        <el-form-item label="店铺 ID">
-                            <span>{{ props.row.shopId }}</span>
+                        <el-form-item label="活动名称">
+                            <span>{{ props.row.activityName }}</span>
                         </el-form-item>
-                        <el-form-item label="商品分类">
-                            <span>{{ props.row.category }}</span>
+                        <el-form-item label="活动规则">
+                            <span>{{ props.row.activityRole }}</span>
                         </el-form-item>
-                        <el-form-item label="店铺地址">
-                            <span>{{ props.row.address }}</span>
+                        <el-form-item label="活动时间">
+                            <span>{{ props.row.activityTime }}</span>
                         </el-form-item>
-                        <el-form-item label="商品描述">
-                            <span>{{ props.row.desc }}</span>
+                        <el-form-item label="活动内容">
+                            <span>{{ props.row.activityContent }}</span>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <span>{{ props.row.activityArea }}</span>
+                        </el-form-item>
+                        <el-form-item label="具体地点">
+                            <span>{{ props.row.activitySite }}</span>
                         </el-form-item>
                     </el-form>
                 </template>
             </el-table-column>
             <el-table-column
-                    label="商品 ID"
-                    prop="id">
+                    label="活动名称"
+                    prop="activityName">
             </el-table-column>
             <el-table-column
-                    label="商品名称"
-                    prop="name">
+                    label="地点"
+                    prop="activitySite">
             </el-table-column>
             <el-table-column
-                    label="描述"
-                    prop="desc">
-            </el-table-column>
-            <el-table-column label="操作">
+                    align="right">
+                <template slot="header" slot-scope="scope">
+                    <el-input
+                            v-model="search"
+                            size="mini"
+                            placeholder="输入关键字搜索"></el-input>
+                </template>
                 <template slot-scope="scope">
                     <el-button
                             size="mini"
@@ -465,6 +465,38 @@
             </el-table-column>
         </el-table>
     </el-dialog>
+    <el-dialog title="编辑活动" :visible.sync="editFrom">
+        <el-form :model="rowsFrom">
+            <!--            <el-form-item label="活动id" :label-width="formLabelWidth">-->
+            <!--                <el-input type="hidden" v-model="rowsFrom.id" autocomplete="off"></el-input>-->
+            <!--            </el-form-item>-->
+            <el-form-item label="活动名称" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activityName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="规则" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activityRole" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动时间" :label-width="formLabelWidth">
+                <el-input type="date" v-model="rowsFrom.activityTime" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动内容" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activityContent" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动区域" :label-width="formLabelWidth">
+                <el-select v-model="rowsFrom.activityArea" placeholder="请选择活动区域">
+                    <el-option label="校内" value="福建师范大学"></el-option>
+                    <el-option label="校外" value="福州"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="具体地点" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activitySite" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="chaungjian">取 消</el-button>
+            <el-button type="primary" @click="xiugai('editFrom')">确 定</el-button>
+        </div>
+    </el-dialog>
 </div>
 
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -474,60 +506,23 @@
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+    var tableData1 = [];
+
     new Vue({
         el: '#app',
         mounted() {
-            axios.get('\'https://v1.jinrishici.com/all.json\'', {
-                params: {
-                    ID: 12345
-                }
+            axios.get('https://v1.jinrishici.com/all.json').then((res) => {
+                console.log(res)
+                this.data = res.data
             })
-                .then(function (response) {
-                    console.log(response)
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    this.data = res.data
-                });
-
         },
         data: function () {
             return {
                 data: {},
+                search: '',
+                editFrom: false,
                 myactivity: false,
-                tableData: [{
-                    id: '12987122',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }, {
-                    id: '12987123',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }, {
-                    id: '12987125',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }, {
-                    id: '12987126',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }],
+                tableData: tableData1,
                 interest: false,
                 qingqueform: {
                     name: '',
@@ -603,6 +598,8 @@
                     password: '',
                     surepassword: '',
                     username: '',
+
+
                 },
                 form2: {
                     name2: '',
@@ -633,7 +630,16 @@
                     place: '',
                     region: '',
                 },
-                formLabelWidth: '120px'
+                formLabelWidth: '120px',
+                rowsFrom: {
+                    name: '0',
+                    rule: '',
+                    time: '',
+                    text: '',
+                    region: '',
+                    place: '',
+                    people: ''
+                }
             }
         },
         methods: {
@@ -651,6 +657,26 @@
                             },
                             success: function (data) {
                                 if (data.resultCode === '200') {
+                                    $.ajax({
+                                        url: "/queryMyActivityList",
+                                        type: "get",
+                                        async: false,
+                                        data: {},
+                                        success: function (data) {
+                                            if (data.resultCode === '200') {
+                                                tableData1.splice(0, tableData1.length);
+                                                for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
+                                                    tableData1.push(data.data.memberActivityUniteEntities[i])
+                                                }
+                                                console.log(tableData1)
+                                            } else {
+                                                layer.msg(data.resultMsg);
+                                            }
+                                        },
+                                        error: function (data) {
+                                            layer.msg('系统错误请稍后重试');
+                                        }
+                                    });
                                     t = true;
                                     layer.msg('登录成功');
                                 } else {
@@ -682,7 +708,6 @@
                         alert('submit!');
                         this.qingqueform = {
                             name: '',
-
                         };
                         this.interest = false;
                     } else {
@@ -738,7 +763,7 @@
                         return false;
                     }
                 });
-                console.log(t);
+
                 if (t) {
                     this.dialogFormVisible1 = false;
                 }
@@ -753,7 +778,7 @@
                 window.open('https://types.yuzeli.com/survey/mbti24')
             },
             zhuchequxiao() {
-                console.log(this.form1);
+
                 this.form1 = {
                     name: '',
                     grade: '',
@@ -768,7 +793,7 @@
                 this.islogin = false;
             },
             xqluru() {
-                console.log(this.form2)
+
                 this.form2 = {
                     name: '',
                     region: '',
@@ -776,28 +801,138 @@
                 this.dialogFormVisible2 = false;
             },
             chaungjian() {
-                console.log(this.chuangj_form)
-                this.chuangj_form = {
-                    name: '',
-                    people: '',
-                    rule: '',
-                    text: '',
-                    time: '',
-                    place: '',
-                    region: '',
-                }
+
+                $.ajax({
+                    url: "/insertMemberActivity",
+                    type: "post",
+                    async: false,
+                    data: {
+                        activityName: this.chuangj_form.name,
+                        activityRole: this.chuangj_form.rule,
+                        activityTime: this.chuangj_form.time,
+                        activityArea: this.chuangj_form.region,
+                        activitySite: this.chuangj_form.place,
+                        activityContent: this.chuangj_form.text,
+                    },
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            $.ajax({
+                                url: "/queryMyActivityList",
+                                type: "get",
+                                async: false,
+                                data: {},
+                                success: function (data) {
+                                    if (data.resultCode === '200') {
+                                        tableData1.splice(0, tableData1.length);
+                                        for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
+
+                                            tableData1.push(data.data.memberActivityUniteEntities[i])
+                                        }
+                                        console.log(tableData1)
+                                    } else {
+                                        layer.msg(data.resultMsg);
+                                    }
+                                },
+                                error: function (data) {
+                                    layer.msg('系统错误请稍后重试');
+                                }
+                            });
+                            layer.msg('活动创建成功');
+                        } else {
+                            layer.msg(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
                 this.chaungjianvibe = false;
             },
-            handleEdit(index, row) {
-                console.log(index, row);
-            },
-            handleDelete(index, row) {
-                console.log(index, row);
+            xiugai(fromname) {
+
+                // let index = this.tableData.findIndex((item) => item.name = this.rowsFrom.name);
+                // this.tableData[index] = this.rowsFrom;
+                $.ajax({
+                    url: "/updateActivity",
+                    type: "post",
+                    async: false,
+                    data: {
+                        id: this.rowsFrom.id,
+                        activityName: this.rowsFrom.activityName,
+                        activityRole: this.rowsFrom.activityRole,
+                        activityTime: this.rowsFrom.activityTime,
+                        activityArea: this.rowsFrom.activityArea,
+                        activitySite: this.rowsFrom.activitySite,
+                        activityContent: this.rowsFrom.activityContent,
+                    },
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            layer.msg('修改成功');
+                        } else {
+                            layer.msg(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
+                this.editFrom = false;
             },
 
 
             handleSelect() {
 
+            },
+            handleClick() {
+                alert('button click');
+            },
+            handleEdit(index, row) {
+                this.editFrom = true;
+                this.rowsFrom = row;
+                console.log(index, row);
+            },
+            handleDelete(index, row) {
+                console.log(row.id);
+                $.ajax({
+                    url: "/deleteActivity",
+                    type: "post",
+                    async: false,
+                    data: {
+                        id: row.id,
+                    },
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            $.ajax({
+                                url: "/queryMyActivityList",
+                                type: "get",
+                                async: false,
+                                data: {},
+                                success: function (data) {
+                                    if (data.resultCode === '200') {
+                                        tableData1.splice(0, tableData1.length);
+                                        for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
+
+                                            tableData1.push(data.data.memberActivityUniteEntities[i])
+                                        }
+                                        console.log(tableData1)
+                                    } else {
+                                        layer.msg(data.resultMsg);
+                                    }
+                                },
+                                error: function (data) {
+                                    layer.msg('系统错误请稍后重试');
+                                }
+                            });
+                            layer.msg('删除成功');
+                        } else {
+                            layer.msg(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
+                this.myactivity = false;
             },
             handleOpen() {
 

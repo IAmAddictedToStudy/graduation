@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +21,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Table(name = "member_activity")
 public class MemberActivityEntity {
+    @Id
     private Long id;
     private String activityName;
     private String activityRole;

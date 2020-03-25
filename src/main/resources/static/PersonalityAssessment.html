@@ -41,10 +41,12 @@
         .demo-table-expand {
             font-size: 0;
         }
+
         .demo-table-expand label {
             width: 90px;
             color: #99a9bf;
         }
+
         .demo-table-expand .el-form-item {
             margin-right: 0;
             margin-bottom: 0;
@@ -76,45 +78,39 @@
                 <el-table-column type="expand">
                     <template slot-scope="props">
                         <el-form label-position="left" inline class="demo-table-expand">
-                            <el-form-item label="商品名称">
-                                <span>{{ props.row.name }}</span>
+                            <el-form-item label="活动名">
+                                <span>{{ props.row.activityName }}</span>
                             </el-form-item>
-                            <el-form-item label="所属店铺">
-                                <span>{{ props.row.shop }}</span>
+                            <el-form-item label="活动规则">
+                                <span>{{ props.row.activityRole }}</span>
                             </el-form-item>
-                            <el-form-item label="商品 ID">
-                                <span>{{ props.row.id }}</span>
+                            <el-form-item label="活动时间">
+                                <span>{{ props.row.activityTime }}</span>
                             </el-form-item>
-                            <el-form-item label="店铺 ID">
-                                <span>{{ props.row.shopId }}</span>
+                            <el-form-item label="活动地区">
+                                <span>{{ props.row.activityArea }}</span>
                             </el-form-item>
-                            <el-form-item label="商品分类">
-                                <span>{{ props.row.category }}</span>
+                            <el-form-item label="活动地点">
+                                <span>{{ props.row.activitySite }}</span>
                             </el-form-item>
-                            <el-form-item label="店铺地址">
-                                <span>{{ props.row.address }}</span>
-                            </el-form-item>
-                            <el-form-item label="商品描述">
-                                <span>{{ props.row.desc }}</span>
+                            <el-form-item label="活动内容">
+                                <span>{{ props.row.activityContent }}</span>
                             </el-form-item>
                         </el-form>
+                        <input type="hidden" id="id" value="{{ props.row.id }}">
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="商品 ID"
-                        prop="id">
-                </el-table-column>
-                <el-table-column
-                        label="商品名称"
-                        prop="name">
+                        label="活动名称"
+                        prop="activityName">
                 </el-table-column>
                 <el-table-column
                         label="描述"
-                        prop="desc">
+                        prop="activityContent">
                 </el-table-column>
                 <el-table-column
                         label="加入">
-                    <el-button type="success">加入</el-button>
+                    <el-button type="success" onclick="joinActivity()">加入</el-button>
                 </el-table-column>
             </el-table>
         </el-main>
@@ -122,46 +118,41 @@
 </div>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="/layer/layer.js"></script>
 <script>
+    var tableData1 = [];
+    $.ajax({
+        url: "/queryRecommendationList",
+        type: "get",
+        async: false,
+        data: {},
+        success: function (data) {
+            if (data.resultCode === '200') {
+                for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
+                    tableData1.push(data.data.memberActivityUniteEntities[i]);
+                }
+                console.log(tableData1);
+            } else {
+                layer.msg(data.resultMsg);
+            }
+        },
+        error: function (data) {
+            layer.msg('系统错误请稍后重试');
+        }
+    });
+
+    function joinActivity(data) {
+
+        layer.msg('点击测试' + $("#id").val());
+    }
+
     new Vue({
         el: '#app',
-        data: function() {
+        data: function () {
 
             return {
-                tableData1: [{
-                    id: '12987122',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }, {
-                    id: '12987123',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }, {
-                    id: '12987125',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }, {
-                    id: '12987126',
-                    name: '好滋好味鸡蛋仔',
-                    category: '江浙小吃、小吃零食',
-                    desc: '荷兰优质淡奶，奶香浓而不腻',
-                    address: '上海市普陀区真北路',
-                    shop: '王小虎夫妻店',
-                    shopId: '10333'
-                }],
-
+                tableData1: tableData1,
                 activeIndex: '1',
                 activeIndex2: '1'
             }
@@ -170,8 +161,6 @@
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
             }
-
-
 
 
         }

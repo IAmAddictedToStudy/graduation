@@ -28,4 +28,16 @@ public class MemberActivityRepository {
         return memberActivityMapper.insertMemberActivity(entity);
     }
 
+    public List<MemberActivityEntity> select(MemberActivityEntity entity) {
+        return memberActivityMapper.select(entity);
+    }
+
+    public int update(MemberActivityEntity entity) {
+        return memberActivityMapper.updateMemberActivity(entity);
+    }
+
+    public int delete(MemberActivityEntity entity) {
+        return memberActivityMapper.delete(entity);
+    }
+
 }
