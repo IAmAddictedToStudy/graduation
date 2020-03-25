@@ -97,7 +97,6 @@
                                 <span>{{ props.row.activityContent }}</span>
                             </el-form-item>
                         </el-form>
-                        <input type="hidden" id="id" value="{{ props.row.id }}">
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -109,8 +108,19 @@
                         prop="activityContent">
                 </el-table-column>
                 <el-table-column
-                        label="加入">
-                    <el-button type="success" onclick="joinActivity()">加入</el-button>
+                        align="right">
+                    <template slot="header" slot-scope="scope">
+                        <el-input
+                                v-model="search"
+                                size="mini"
+                                placeholder="输入关键字搜索"></el-input>
+                    </template>
+                    <template slot-scope="scope">
+                        <el-button
+                                size="mini"
+                                @click="handleEdit(scope.$index, scope.row)">加入
+                        </el-button>
+                    </template>
                 </el-table-column>
             </el-table>
         </el-main>
@@ -160,7 +170,27 @@
         methods: {
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
-            }
+            },
+            handleEdit(index, row) {
+                $.ajax({
+                    url: "/insertActivityRegistration",
+                    type: "post",
+                    async: false,
+                    data: {
+                        activityId: row.id,
+                    },
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            alert('活动报名成功');
+                        } else {
+                            alert(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
+            },
 
 
         }
