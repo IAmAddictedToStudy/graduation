@@ -289,7 +289,13 @@
             </el-form-item>
             <el-form-item label="活动时间" :label-width="formLabelWidth" prop="time"
                           :rules="[{ required: true, message: '活动时间不能为空'}]">
-                <el-input v-model="chuangj_form.time" type="date" autocomplete="off"></el-input>
+                <el-date-picker
+                        v-model="chuangj_form.time"
+                        type="datetime"
+                        format="yyyy-MM-dd hh:mm"
+                        value-format="yyyy-MM-dd hh:mm"
+                        placeholder="选择日期时间">
+                </el-date-picker>
             </el-form-item>
             <el-form-item label="活动内容" :label-width="formLabelWidth" prop="text"
                           :rules="[{ required: true, message: '活动内容不能为空'}]">

@@ -235,7 +235,7 @@
 
                     <el-button
                             size="mini"
-                            @click="handleEdit(scope.$index, scope.row)">编辑
+                            @click="handleEdit1(scope.$index, scope.row)">编辑
                     </el-button>
                     <el-button
                             size="mini"
@@ -246,6 +246,40 @@
             </el-table-column>
         </el-table>
     </el-dialog>
+
+    <el-dialog title="编辑活动" :visible.sync="editFrom1">
+        <el-form :model="rowsFrom">
+            <!--            <el-form-item label="活动id" :label-width="formLabelWidth">-->
+            <!--                <el-input type="hidden" v-model="rowsFrom.id" autocomplete="off"></el-input>-->
+            <!--            </el-form-item>-->
+            <el-form-item label="活动名称" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activityName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="规则" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activityRole" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动时间" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activityTime" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动内容" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activityContent" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动区域" :label-width="formLabelWidth">
+                <el-select v-model="rowsFrom.activityArea" placeholder="请选择活动区域">
+                    <el-option label="校内" value="福建师范大学"></el-option>
+                    <el-option label="校外" value="福州"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="具体地点" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activitySite" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="chaungjian">取 消</el-button>
+            <el-button type="primary" @click="xiugai('editFrom')">确 定</el-button>
+        </div>
+    </el-dialog>
+
 
     <el-dialog title="编辑活动" :visible.sync="editFrom">
         <el-form :model="rowsFrom">
@@ -476,6 +510,7 @@
                 data: {},
                 search: '',
                 editFrom: false,
+                editFrom1: false,
                 myactivity: false,
                 detailFrom: false,
                 merchantManage: false,
@@ -914,6 +949,11 @@
             },
             handleEdit(index, row) {
                 this.editFrom = true;
+                this.rowsFrom = row;
+                console.log(index, row);
+            },
+            handleEdit1(index, row) {
+                this.editFrom1 = true;
                 this.rowsFrom = row;
                 console.log(index, row);
             },

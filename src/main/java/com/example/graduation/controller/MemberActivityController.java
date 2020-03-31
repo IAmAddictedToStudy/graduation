@@ -88,7 +88,7 @@ public class MemberActivityController {
             resultBean.setResultMsg("活动时间不能为空");
             return resultBean;
         } else {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
             String startTimeStr = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS").format(new Date());
             Date startTime = df.parse(startTimeStr);
             Date endTime = df.parse(memberActivityBean.getActivityTime());

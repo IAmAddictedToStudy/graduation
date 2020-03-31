@@ -18,7 +18,7 @@ public class MerchantLikeProvider {
                     "         left join businessmen_recommend br on ml.merchant_id = br.id");
             WHERE("br.propaganda_time >now() ");
             GROUP_BY("merchant_id");
-            ORDER_BY("br.create_time desc");
+            ORDER_BY("count(*) desc");
         }}.toString();
     }
 
