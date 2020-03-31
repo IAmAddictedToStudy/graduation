@@ -105,7 +105,6 @@
                                         <span>{{ props.row.activityRole }}</span>
                                     </el-form-item>
                                     <el-form-item label="活动时间">
-                                    <el-form-item label="活动时间">
                                         <span>{{ props.row.activityTime }}</span>
                                     </el-form-item>
                                     <el-form-item label="活动地区">
@@ -297,7 +296,7 @@
                                 </template>
                             </el-table-column>
                         </el-table>
-                        <el-button type="info" @click="chaungjianvibe=true">创建</el-button>
+
                     </div>
                 </div>
             </div>
@@ -369,46 +368,46 @@
                                 </template>
                             </el-table-column>
                         </el-table>
-                        <el-button type="info" @click="chaungjianvibe=true">创建</el-button>
                     </div>
                 </div>
             </div>
         </el-main>
     </el-container>
     <el-dialog title="活动创建" :visible.sync="chaungjianvibe">
-        <el-form :model="chuangj_form" ref="chuangjianForm">
-            <el-form-item label="活动名称" :label-width="formLabelWidth" prop="name"
-                          :rules="[{ required: true, message: '地点不能为空'}]">
-                <el-input v-model="chuangj_form.name" autocomplete="off" type="text"></el-input>
-            </el-form-item>
-            <el-form-item label="规则" :label-width="formLabelWidth" prop="rule"
-                          :rules="[{ required: true, message: '地点不能为空'}]">
-                <el-input v-model="chuangj_form.rule" autocomplete="off" type="text"></el-input>
-            </el-form-item>
-            <el-form-item label="活动时间" :label-width="formLabelWidth" prop="time"
-                          :rules="[{ required: true, message: '地点不能为空'}]">
-                <el-input v-model="chuangj_form.time" autocomplete="off" type="date"></el-input>
-            </el-form-item>
-            <el-form-item label="活动内容" :label-width="formLabelWidth" prop="text"
-                          :rules="[{ required: true, message: '地点不能为空'}]">
-                <el-input v-model="chuangj_form.text" autocomplete="off" type="text"></el-input>
-            </el-form-item>
-            <el-form-item label="活动区域" :label-width="formLabelWidth" prop="region"
-                          :rules="[{ required: true, message: '区域不能为空'}]">
-                <el-select v-model="chuangj_form.region" placeholder="请选择活动区域">
-                    <el-option label="校内" value="福建师范大学"></el-option>
-                    <el-option label="校外" value="福州"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="具体地点" :label-width="formLabelWidth" prop="place"
-                          :rules="[{ required: true, message: '地点不能为空'}]">
-                <el-input v-model="chuangj_form.place" autocomplete="off" type="text"></el-input>
-            </el-form-item>
-            <el-form-item label="发起人/组织" :label-width="formLabelWidth" prop="people"
-                          :rules="[{ required: true, message: '地点不能为空'}]">
-                <el-input v-model="chuangj_form.people" autocomplete="off" type="text"></el-input>
-            </el-form-item>
-        </el-form>
+        <!--        <el-form :model="chuangj_form" ref="chuangjianForm">-->
+        <!--            <el-form-item label="活动名称" :label-width="formLabelWidth" prop="name"-->
+        <!--                          :rules="[{ required: true, message: '地点不能为空'}]">-->
+        <!--                <el-input v-model="chuangj_form.name" autocomplete="off" type="text"></el-input>-->
+        <!--            </el-form-item>-->
+        <!--            <el-form-item label="规则" :label-width="formLabelWidth" prop="rule"-->
+        <!--                          :rules="[{ required: true, message: '地点不能为空'}]">-->
+        <!--                <el-input v-model="chuangj_form.rule" autocomplete="off" type="text"></el-input>-->
+        <!--            </el-form-item>-->
+        <!--            <el-form-item label="活动时间" :label-width="formLabelWidth" prop="time"-->
+        <!--                          :rules="[{ required: true, message: '地点不能为空'}]">-->
+        <!--                <el-input v-model="chuangj_form.time" autocomplete="off" type="date"></el-input>-->
+        <!--            </el-form-item>-->
+        <!--            <el-form-item label="活动内容" :label-width="formLabelWidth" prop="text"-->
+        <!--                          :rules="[{ required: true, message: '地点不能为空'}]">-->
+        <!--                <el-input v-model="chuangj_form.text" autocomplete="off" type="text"></el-input>-->
+        <!--            </el-form-item>-->
+        <!--            <el-form-item label="活动区域" :label-width="formLabelWidth" prop="region"-->
+        <!--                          :rules="[{ required: true, message: '区域不能为空'}]">-->
+        <!--                <el-select v-model="chuangj_form.region" placeholder="请选择活动区域">-->
+        <!--                    <el-option label="校内" value="福建师范大学"></el-option>-->
+        <!--                    <el-option label="校外" value="福州"></el-option>-->
+        <!--                </el-select>-->
+        <!--            </el-form-item>-->
+        <!--            <el-form-item label="具体地点" :label-width="formLabelWidth" prop="place"-->
+        <!--                          :rules="[{ required: true, message: '地点不能为空'}]">-->
+        <!--                <el-input v-model="chuangj_form.place" autocomplete="off" type="text"></el-input>-->
+        <!--            </el-form-item>-->
+        <!--            <el-form-item label="发起人/组织" :label-width="formLabelWidth" prop="people"-->
+        <!--                          :rules="[{ required: true, message: '地点不能为空'}]">-->
+        <!--                <el-input v-model="chuangj_form.people" autocomplete="off" type="text"></el-input>-->
+        <!--            </el-form-item>-->
+        <!--        </el-form>-->
+
         <div slot="footer" class="dialog-footer">
             <el-button @click="chaungjianvibe=false">取 消</el-button>
             <el-button @click="chaungjian('chuangjianForm')">确 定</el-button>

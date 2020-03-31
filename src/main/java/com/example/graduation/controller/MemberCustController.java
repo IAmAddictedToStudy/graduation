@@ -38,6 +38,32 @@ public class MemberCustController extends BaseController {
         return resultBean;
     }
 
+    @RequestMapping("/queryMyMemberMessage")
+    public CommonResultBean<MemberCustBean> queryMyMemberMessage(HttpSession session) {
+        CommonResultBean<MemberCustBean> resultBean = new CommonResultBean<>();
+        try {
+            MemberCustBean memberCustBean = (MemberCustBean) session.getAttribute("memberCustBean");
+            if (memberCustBean == null) {
+                resultBean.setResultCode("-1");
+                resultBean.setResultMsg("未登录");
+                return resultBean;
+            }
+            resultBean.setData(memberCustBean);
+            return resultBean;
+        } catch (Exception e) {
+            resultBean.setResultCode("-1");
+            resultBean.setResultMsg("未登录");
+            return resultBean;
+        }
+
+    }
+
+    @RequestMapping("/backLogin")
+    public CommonResultBean backLogin(HttpSession session) {
+        session.invalidate();
+        return new CommonResultBean();
+    }
+
     @PostMapping("/login")
     public CommonResultBean<MemberCustBean> login(MemberCustLoginRequestBean requestBean, HttpSession session) throws Exception {
         CommonResultBean<MemberCustBean> resultBean = new CommonResultBean<>();

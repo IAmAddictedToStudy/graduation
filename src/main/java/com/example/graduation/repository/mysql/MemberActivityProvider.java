@@ -28,6 +28,7 @@ public class MemberActivityProvider {
             if (requestEntity.getId() != null) {
                 WHERE(" ma.id=#{id} ");
             }
+            WHERE(" activity_time > now() ");
         }}.toString();
     }
 

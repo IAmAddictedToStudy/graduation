@@ -121,76 +121,14 @@
 <div id="app">
     <el-container>
         <el-header>
-            <el-menu
-                    :default-active="activeIndex2"
-                    class="el-menu-demo"
-                    mode="horizontal"
-                    @select="handleSelect"
-                    background-color="#545c64"
-                    text-color="#fff"
-                    active-text-color="#ffd04b">
-                <el-submenu index="1" style="margin: 0 0 0 100px">
-                    <template slot="title">平均型</template>
-                    <!--                    <el-menu-item index="1-1">性格判定</el-menu-item>-->
-                    <el-menu-item type="text" @click="dialogFormVisible2 = true">性格判定</el-menu-item>
-                    <el-menu-item index="1-2">兴趣信息录入</el-menu-item>
-                    <el-menu-item type="text" @click="chaungjianvibe=true" index="1-3">发起活动
-
-                    </el-menu-item>
-                    <el-submenu index="1-4">
-                        <template slot="title">加入活动</template>
-                        <el-menu-item index="1-4-1">福州森林公园踏青</el-menu-item>
-                        <el-menu-item index="1-4-2">滑板大赛</el-menu-item>
-                        <el-menu-item index="1-4-3">拳击夏令营</el-menu-item>
-                    </el-submenu>
-                </el-submenu>
-                <el-submenu index="2">
-                    <template slot="title">榜样型</template>
-                    <el-menu-item index="2-1">性格判定</el-menu-item>
-                    <el-menu-item index="2-2">兴趣信息录入</el-menu-item>
-                    <el-menu-item index="2-3">发起活动</el-menu-item>
-                    <el-submenu index="2-4">
-                        <template slot="title">活动列表</template>
-                        <el-menu-item index="2-4-1">活动1</el-menu-item>
-                        <el-menu-item index="2-4-2">活动2</el-menu-item>
-                        <el-menu-item index="2-4-3">活动3</el-menu-item>
-                    </el-submenu>
-                </el-submenu>
-                <el-submenu index="3">
-                    <template slot="title">保守型</template>
-                    <el-menu-item index="3-1">性格判定</el-menu-item>
-                    <el-menu-item index="3-2">兴趣信息录入</el-menu-item>
-                    <el-menu-item index="3-3">发起活动</el-menu-item>
-                    <el-submenu index="3-4">
-                        <template slot="title">活动列表</template>
-                        <el-menu-item index="3-4-1">活动1</el-menu-item>
-                        <el-menu-item index="3-4-2">活动2</el-menu-item>
-                        <el-menu-item index="3-4-3">活动3</el-menu-item>
-                    </el-submenu>
-                </el-submenu>
-                <el-submenu index="4">
-                    <template slot="title">自我为中心型</template>
-                    <el-menu-item index="4-1">性格判定</el-menu-item>
-                    <el-menu-item index="4-2">兴趣信息录入</el-menu-item>
-                    <el-menu-item index="4-3">发起活动</el-menu-item>
-                    <el-submenu index="4-4">
-                        <template slot="title">活动列表</template>
-                        <el-menu-item index="4-4-1">活动1</el-menu-item>
-                        <el-menu-item index="4-4-2">活动2</el-menu-item>
-                        <el-menu-item index="4-4-3">活动3</el-menu-item>
-                    </el-submenu>
-                </el-submenu>
-            </el-menu>
             <div class="denlu" style="float: right">
                 <!--                <el-tag type="success" v-if="islogin">{{form.name}},欢饮你</el-tag>-->
                 <el-dropdown split-button type="primary" @click="handleClick" v-if="islogin">
                     更多菜单
                     <el-dropdown-menu slot="dropdown">
                         <el-button type="text" @click="myactivity = true">我的活动</el-button>
-                        <el-dropdown-item>1</el-dropdown-item>
-                        <el-dropdown-item>2</el-dropdown-item>
-                        <el-dropdown-item>3</el-dropdown-item>
-                        <el-dropdown-item>4</el-dropdown-item>
+                        <el-button type="text" @click="myactivity = true">我加入的活动</el-button>
+                        <el-button type="text" @click="handleClick1">退出登录</el-button>
                     </el-dropdown-menu>
                 </el-dropdown>
                 <el-button v-if="!islogin" @click="open" type="primary">登录</el-button>
@@ -507,7 +445,23 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     var tableData1 = [];
-
+    var islogin1 = false;
+    $.ajax({
+        url: "/queryMyMemberMessage",
+        type: "post",
+        async: false,
+        data: {},
+        success: function (data) {
+            if (data.resultCode === '200') {
+                islogin1 = true;
+            } else {
+                //  layer.msg(data.resultMsg);
+            }
+        },
+        error: function (data) {
+            //layer.msg('系统错误请稍后重试');
+        }
+    });
     new Vue({
         el: '#app',
         mounted() {
@@ -527,7 +481,7 @@
                 qingqueform: {
                     name: '',
                 },
-                islogin: false,
+                islogin: islogin1,
                 dialogVisible: false,
                 options1: [{
                     value: '平均型',
@@ -698,8 +652,26 @@
                 }
 
             },
-            handleClick() {
-                alert('button click');
+            handleClick1() {
+                $.ajax({
+                    url: "/backLogin",
+                    type: "post",
+                    async: false,
+                    data: {},
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            location.reload();
+                            layer.msg("退出登录成功");
+                        } else {
+                            layer.msg(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
+
+
             },
             interestone(luruFrom) {
                 console.log(this.qingqueform);
