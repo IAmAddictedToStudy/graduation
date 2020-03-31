@@ -2,6 +2,7 @@ package com.example.graduation.repository;
 
 import com.example.graduation.repository.entity.ActivityRegistrationEntity;
 import com.example.graduation.repository.entity.MemberActivityUniteEntity;
+import com.example.graduation.repository.entity.MyActivityJoinEntity;
 import com.example.graduation.repository.mysql.ActivityRegistrationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,5 +32,10 @@ public class ActivityRegistrationRepository {
     public List<MemberActivityUniteEntity> queryMyJoinMemberActivity(ActivityRegistrationEntity entity) {
         return activityRegistrationMapper.queryMyJoinMemberActivity(entity);
     }
+
+    public List<MyActivityJoinEntity> queryMyJoinMemberMessageActivity(MyActivityJoinEntity entity) {
+        return activityRegistrationMapper.queryMyJoinMemberMessageActivity(entity);
+    }
+
 
 }

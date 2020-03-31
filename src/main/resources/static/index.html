@@ -5,6 +5,7 @@
     <title>福建师大</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./default.css">
+
     <style>
         #app {
             height: 100%;
@@ -377,6 +378,12 @@
                             placeholder="输入关键字搜索"></el-input>
                 </template>
                 <template slot-scope="scope">
+
+                    <el-button
+                            size="mini"
+                            @click="handleDetail(scope.$index, scope.row)">查看
+                    </el-button>
+
                     <el-button
                             size="mini"
                             @click="handleEdit(scope.$index, scope.row)">编辑
@@ -474,6 +481,55 @@
             <el-button type="primary" @click="xiugai('editFrom')">确 定</el-button>
         </div>
     </el-dialog>
+
+    <el-dialog title="查看报名情况" :visible.sync="detailFrom">
+        <el-table
+                :data="tableData3"
+                style="width: 100%">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+                        <el-form-item label="活动名称">
+                            <span>{{ props.row.activityName }}</span>
+                        </el-form-item>
+                        <el-form-item label="报名人名字">
+                            <span>{{ props.row.custName }}</span>
+                        </el-form-item>
+                        <el-form-item label="联系方式">
+                            <span>{{ props.row.custPhone }}</span>
+                        </el-form-item>
+                        <el-form-item label="报名人学院">
+                            <span>{{ props.row.custAcademy }}</span>
+                        </el-form-item>
+                        <el-form-item label="报名人年级">
+                            <span>{{ props.row.custGrade }}</span>
+                        </el-form-item>
+                        <el-form-item label="报名人专业">
+                            <span>{{ props.row.custProfession }}</span>
+                        </el-form-item>
+                        <el-form-item label="性格类型">
+                            <span>{{ props.row.custCharacter }}</span>
+                        </el-form-item>
+                        <el-form-item label="报名时间">
+                            <span>{{ props.row.joinTime }}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="活动名称"
+                    prop="activityName">
+            </el-table-column>
+            <el-table-column
+                    label="报名人"
+                    prop="custName">
+            </el-table-column>
+            <el-table-column
+                    label="联系方式"
+                    prop="custPhone">
+            </el-table-column>
+        </el-table>
+    </el-dialog>
 </div>
 
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -485,6 +541,7 @@
 <script>
     var tableData1 = [];
     var tableData2 = [];
+    var tableData3 = [];
     var islogin1 = false;
     $.ajax({
         url: "/queryMyMemberMessage",
@@ -559,9 +616,11 @@
                 search: '',
                 editFrom: false,
                 myactivity: false,
+                detailFrom: false,
                 myJoinactivity: false,
                 tableData: tableData1,
                 tableData2: tableData2,
+                tableData3: tableData3,
                 interest: false,
                 qingqueform: {
                     name: '',
@@ -815,6 +874,7 @@
             goActive() {
                 window.open('GreateActivities.html')
             },
+
             GoGo() {
                 window.open('PersonalityAssessment.html')
             },
@@ -896,7 +956,6 @@
                 this.chaungjianvibe = false;
             },
             xiugai(fromname) {
-
                 // let index = this.tableData.findIndex((item) => item.name = this.rowsFrom.name);
                 // this.tableData[index] = this.rowsFrom;
                 $.ajax({
@@ -932,6 +991,32 @@
             },
             handleClick() {
                 alert('button click');
+            },
+            handleDetail(index, row) {
+                this.detailFrom = true;
+                this.rowsFrom = row;
+                console.log(row.id);
+                $.ajax({
+                    url: "/queryMyJoinMemberMessageActivity",
+                    type: "post",
+                    async: false,
+                    data: {
+                        activityId: row.id,
+                    },
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            tableData3.splice(0, tableData3.length);
+                            for (i = 0, len = data.data.myActivityJoinEntities.length; i < len; i++) {
+                                tableData3.push(data.data.myActivityJoinEntities[i])
+                            }
+                        } else {
+                            layer.msg(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
             },
             handleEdit(index, row) {
                 this.editFrom = true;

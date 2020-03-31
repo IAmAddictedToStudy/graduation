@@ -1,9 +1,8 @@
 package com.example.graduation.controller;
 
-import com.example.graduation.bean.ActivityRegistrationBean;
-import com.example.graduation.bean.CommonResultBean;
-import com.example.graduation.bean.MemberCustBean;
+import com.example.graduation.bean.*;
 import com.example.graduation.service.ActivityRegisteationService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +25,6 @@ public class ActivityRegisteationController extends BaseController {
     @PostMapping("/insertActivityRegistration")
     public CommonResultBean insertActivityRegistration(@Valid ActivityRegistrationBean activityRegistrationBean, HttpSession session) {
         CommonResultBean commonResultBean = new CommonResultBean();
-
         try {
             MemberCustBean memberCustBean = (MemberCustBean) session.getAttribute("memberCustBean");
             activityRegistrationBean.setStudentNumber(memberCustBean.getCustStudentNumber());
@@ -44,4 +42,17 @@ public class ActivityRegisteationController extends BaseController {
         return commonResultBean;
     }
 
+    @PostMapping("/queryMyJoinMemberMessageActivity")
+    public CommonResultBean<MyActivityJoinRespnseBean> queryMyJoinMemberMessageActivity(MyActivityJoinRequestBean myActivityJoinRequestBean) {
+        CommonResultBean<MyActivityJoinRespnseBean> resultBean = new CommonResultBean<>();
+        if (StringUtils.isBlank(myActivityJoinRequestBean.getActivityId())) {
+            resultBean.setResultCode("-1");
+            resultBean.setResultMsg("活动id不能为空");
+            return resultBean;
+        }
+
+        MyActivityJoinRespnseBean myActivityJoinRespnseBean = activityRegisteationService.queryMyJoinMemberMessageActivity(myActivityJoinRequestBean);
+        resultBean.setData(myActivityJoinRespnseBean);
+        return resultBean;
+    }
 }

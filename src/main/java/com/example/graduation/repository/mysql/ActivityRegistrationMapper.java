@@ -3,6 +3,7 @@ package com.example.graduation.repository.mysql;
 
 import com.example.graduation.repository.entity.ActivityRegistrationEntity;
 import com.example.graduation.repository.entity.MemberActivityUniteEntity;
+import com.example.graduation.repository.entity.MyActivityJoinEntity;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -28,5 +29,8 @@ public interface ActivityRegistrationMapper extends InsertListMapper<ActivityReg
 
     @SelectProvider(type = ActivityRegistrationProvider.class, method = "queryMyJoinMemberActivity")
     List<MemberActivityUniteEntity> queryMyJoinMemberActivity(ActivityRegistrationEntity entity);
+
+    @SelectProvider(type = ActivityRegistrationProvider.class, method = "queryMyJoinMemberMessageActivity")
+    List<MyActivityJoinEntity> queryMyJoinMemberMessageActivity(MyActivityJoinEntity entity);
 
 }
