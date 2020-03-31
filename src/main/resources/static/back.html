@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>福建师大</title>
+    <title>福建师大后台管理</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./default.css">
 
@@ -127,13 +127,12 @@
                 <el-dropdown split-button type="primary" @click="handleClick" v-if="islogin">
                     更多菜单
                     <el-dropdown-menu slot="dropdown">
-                        <el-button type="text" @click="myactivity = true">我的活动</el-button>
-                        <el-button type="text" @click="myJoinactivity = true">我加入的活动</el-button>
+                        <!--                        <el-button type="text" @click="myactivity = true">我的活动</el-button>-->
+                        <!--                        <el-button type="text" @click="myJoinactivity = true">我加入的活动</el-button>-->
                         <el-button type="text" @click="handleClick1">退出登录</el-button>
                     </el-dropdown-menu>
                 </el-dropdown>
                 <el-button v-if="!islogin" @click="open" type="primary">登录</el-button>
-                <el-button v-if="!islogin" @click="open1" type="success">注册</el-button>
             </div>
         </el-header>
         <el-main>
@@ -147,38 +146,19 @@
             <div style="width: 60%;margin-left: 20%;text-align: center">
                 <el-row :gutter="20">
                     <el-col :span="6">
-                        <div class="grid-content bg-purple" @click="goActive">
+                        <div class="grid-content bg-purple" @click="myactivity = true">
                             <img class="icons" src="./assetes/活动.png"/>
-                            <p class="title">加入活动</p>
+                            <p class="title">活动管理</p>
                         </div>
                     </el-col>
                     <el-col :span="6">
-                        <div class="grid-content bg-purple" @click="chaungjianvibe=true">
+                        <div class="grid-content bg-purple" @click="merchantManage= true">
                             <img class="icons" src="./assetes/活动 2.png"/>
-                            <p class="title">创建活动</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="grid-content bg-purple" @click="ceping">
-                            <img class="icons" src="./assetes/CharacterTraits.png"/>
-                            <p class="title">性格测评</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="grid-content bg-purple" @click="GoGo">
-                            <img class="icons" src="./assetes/Complaint.png"/>
-                            <p class="title">推荐的活动</p>
+                            <p class="title">商家推荐管理</p>
                         </div>
                     </el-col>
                 </el-row>
-                <el-row :gutter="20">
-                    <el-col :span="6">
-                        <div class="grid-content bg-purple" @click="goMerchant">
-                            <img class="icons" src="./assetes/MuchMore.png"/>
-                            <p class="title">商家活动推荐</p>
-                        </div>
-                    </el-col>
-                </el-row>
+
             </div>
         </el-main>
         <el-footer style="position:absolute;bottom:0;width:100%;color:#f5f5f5;background: #000;text-align: center">
@@ -203,134 +183,8 @@
             <el-button type="primary" @click="Login('dengluFrom')">确 定</el-button>
         </div>
     </el-dialog>
-    <el-dialog title="注册" :visible.sync="dialogFormVisible1">
-        <el-form :model="form1" ref="zucheForm">
-            <el-form-item label="年级" :label-width="formLabelWidth" prop="grade"
-                          :rules="[{ required: true, message: '请选择年级'}]">
-                <!--                <el-input v-model="form1.grade" autocomplete="off"></el-input>-->
-                <el-select v-model="form1.grade" placeholder="请选择" type="text">
-                    <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="学院" :label-width="formLabelWidth" prop="college"
-                          :rules="[{ required: true, message: '学院名称不能为空'}]">
-                <el-input v-model="form1.college" autocomplete="off" type="text"></el-input>
-            </el-form-item>
-            <el-form-item label="专业" :label-width="formLabelWidth" prop="major"
-                          :rules="[{ required: true, message: '专业名称不能为空'}]">
-                <el-input v-model="form1.major" autocomplete="off" type="text"></el-input>
-            </el-form-item>
-            <el-form-item label="姓名" :label-width="formLabelWidth" prop="username"
-                          :rules="[{ required: true, message: '姓名不能为空'}]">
-                <el-input v-model="form1.username" autocomplete="off" type="text"></el-input>
-            </el-form-item>
-            <el-form-item label="性格类型" :label-width="formLabelWidth" prop="value"
-                          :rules="[{ required: true, message: '请选择性格类型'}]">
-                <!--                <el-input v-model="form1.userxingge" autocomplete="off"></el-input>-->
-                <el-select v-model="form1.value" placeholder="请选择" type="text">
-                    <el-option
-                            v-for="item in options1"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="学号" :label-width="formLabelWidth" prop="name"
-                          :rules="[{ required: true, message: '学号不能为空'}]">
-                <el-input maxlength="12" minlength="12"
-                          v-model="form1.name" autocomplete="off" type="String"></el-input>
-            </el-form-item>
-            <el-form-item prop="password" :rules="[{ required: true, message: '密码不能为空'}]" label="密码"
-                          :label-width="formLabelWidth">
-                <el-input type="password" v-model="form1.password" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="确认密码" :label-width="formLabelWidth" prop="surepassword"
-                          :rules="[{ required: true, message: '确认密码不能为空'}]">
-                <el-input type="password" v-model="form1.surepassword" autocomplete="off"></el-input>
-            </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="zhuchequxiao">取 消</el-button>
-            <el-button type="primary" @click="zhuche('zucheForm')">确 定</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible2">
-        <el-form :model="form2">
-            <el-form-item label="活动名称" :label-width="formLabelWidth">
-                <el-input v-model="form2.name" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="兴趣兴趣" :label-width="formLabelWidth">
-                <el-select v-model="form2.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-            </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="xqluru">取 消</el-button>
-            <el-button type="primary" @click="xqluru">确 定</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog title="创建活动" :visible.sync="chaungjianvibe">
-        <el-form :model="chuangj_form">
-            <el-form-item label="活动名称" :label-width="formLabelWidth" prop="name"
-                          :rules="[{ required: true, message: '活动名不能为空'}]">
-                <el-input v-model="chuangj_form.name" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="规则" :label-width="formLabelWidth" prop="rule"
-                          :rules="[{ required: true, message: '活动规则不能为空'}]">
-                <el-input v-model="chuangj_form.rule" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="活动时间" :label-width="formLabelWidth" prop="time"
-                          :rules="[{ required: true, message: '活动时间不能为空'}]">
-                <el-input v-model="chuangj_form.time" type="date" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="活动内容" :label-width="formLabelWidth" prop="text"
-                          :rules="[{ required: true, message: '活动内容不能为空'}]">
-                <el-input v-model="chuangj_form.text" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="活动区域" :label-width="formLabelWidth" prop="region"
-                          :rules="[{ required: true, message: '活动区域不能为空'}]">
-                <el-select v-model="chuangj_form.region" placeholder="请选择活动区域">
-                    <el-option label="校内" value="福建师范大学"></el-option>
-                    <el-option label="校外" value="福州"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="具体地点" :label-width="formLabelWidth" prop="place"
-                          :rules="[{ required: true, message: '具体地点不能为空'}]">
-                <el-input v-model="chuangj_form.place" autocomplete="off"></el-input>
-            </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="chaungjian">确 定</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog title="兴趣录入" :visible.sync="interest">
-        <el-form :model="qingqueform" ref="qingqueform">
-            <el-form-item label="兴趣" :label-width="formLabelWidth" prop="name"
-                          :rules="[{ required: true, message: '兴趣不能为空'}]">
-                <el-input v-model="qingqueform.name" autocomplete="off" type="text"></el-input>
-            </el-form-item>
-            <!--            <el-form-item label="活动区域" :label-width="formLabelWidth">-->
-            <!--                <el-select v-model="form.region" placeholder="请选择活动区域">-->
-            <!--                    <el-option label="区域一" value="shanghai"></el-option>-->
-            <!--                    <el-option label="区域二" value="beijing"></el-option>-->
-            <!--                </el-select>-->
-            <!--            </el-form-item>-->
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="interest = false">取 消</el-button>
-            <el-button @click="()=>interestone('qingqueform')">确 定</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog title="我的活动" :visible.sync="myactivity">
+
+    <el-dialog title="活动管理" :visible.sync="myactivity">
         <el-table
                 :data="tableData"
                 style="width: 100%">
@@ -381,8 +235,104 @@
 
                     <el-button
                             size="mini"
-                            @click="handleDetail(scope.$index, scope.row)">查看
+                            @click="handleEdit(scope.$index, scope.row)">编辑
                     </el-button>
+                    <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleDelete(scope.$index, scope.row)">删除
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </el-dialog>
+
+    <el-dialog title="编辑活动" :visible.sync="editFrom">
+        <el-form :model="rowsFrom">
+            <!--            <el-form-item label="活动id" :label-width="formLabelWidth">-->
+            <!--                <el-input type="hidden" v-model="rowsFrom.id" autocomplete="off"></el-input>-->
+            <!--            </el-form-item>-->
+            <el-form-item label="商家名称" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.businessName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="商家简介" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.briefIntroduction" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动地点" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activitySite" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动时间" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activityTime" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="宣传截至时间" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.propagandaTime" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动地点" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.activitySite" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动简介" :label-width="formLabelWidth">
+                <el-input v-model="rowsFrom.tagline" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="chaungjian">取 消</el-button>
+            <el-button type="primary" @click="xiugai('editFrom')">确 定</el-button>
+        </div>
+    </el-dialog>
+
+
+    <el-dialog title="商家推送" :visible.sync="merchantManage">
+        <el-table
+                :data="tableData2"
+                style="width: 100%">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+                        <el-form-item label="商家活动id">
+                            <span>{{ props.row.id }}</span>
+                        </el-form-item>
+                        <el-form-item label="商家名称">
+                            <span>{{ props.row.businessName }}</span>
+                        </el-form-item>
+                        <el-form-item label="活动地点">
+                            <span>{{ props.row.activitySite }}</span>
+                        </el-form-item>
+                        <el-form-item label="活动时间">
+                            <span>{{ props.row.activityTime }}</span>
+                        </el-form-item>
+                        <el-form-item label="宣传截至时间">
+                            <span>{{ props.row.propagandaTime }}</span>
+                        </el-form-item>
+                        <el-form-item label="商家简介">
+                            <span>{{ props.row.briefIntroduction }}</span>
+                        </el-form-item>
+                        <el-form-item label="活动简介">
+                            <span>{{ props.row.tagline }}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="商家名称"
+                    prop="businessName">
+            </el-table-column>
+            <el-table-column
+                    label="活动地点"
+                    prop="activitySite">
+            </el-table-column>
+            <el-table-column
+                    label="点赞数"
+                    prop="likeCount">
+            </el-table-column>
+            <el-table-column
+                    align="right">
+                <template slot="header" slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="chaungjianvibe=true">添加
+                    </el-button>
+                </template>
+                <template slot-scope="scope">
 
                     <el-button
                             size="mini"
@@ -398,137 +348,50 @@
         </el-table>
     </el-dialog>
 
-    <el-dialog title="我的加入的活动" :visible.sync="myJoinactivity">
-        <el-table
-                :data="tableData2"
-                style="width: 100%">
-            <el-table-column type="expand">
-                <template slot-scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
-                        <el-form-item label="活动id">
-                            <span>{{ props.row.id }}</span>
-                        </el-form-item>
-                        <el-form-item label="活动名称">
-                            <span>{{ props.row.activityName }}</span>
-                        </el-form-item>
-                        <el-form-item label="活动规则">
-                            <span>{{ props.row.activityRole }}</span>
-                        </el-form-item>
-                        <el-form-item label="活动时间">
-                            <span>{{ props.row.activityTime }}</span>
-                        </el-form-item>
-                        <el-form-item label="活动内容">
-                            <span>{{ props.row.activityContent }}</span>
-                        </el-form-item>
-                        <el-form-item label="活动区域">
-                            <span>{{ props.row.activityArea }}</span>
-                        </el-form-item>
-                        <el-form-item label="具体地点">
-                            <span>{{ props.row.activitySite }}</span>
-                        </el-form-item>
-                    </el-form>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="活动名称"
-                    prop="activityName">
-            </el-table-column>
-            <el-table-column
-                    label="地点"
-                    prop="activitySite">
-            </el-table-column>
-            <el-table-column
-                    align="right">
-                <template slot="header" slot-scope="scope">
-                    <el-input
-                            v-model="search"
-                            size="mini"
-                            placeholder="输入关键字搜索"></el-input>
-                </template>
-            </el-table-column>
-        </el-table>
-    </el-dialog>
 
-    <el-dialog title="编辑活动" :visible.sync="editFrom">
-        <el-form :model="rowsFrom">
-            <!--            <el-form-item label="活动id" :label-width="formLabelWidth">-->
-            <!--                <el-input type="hidden" v-model="rowsFrom.id" autocomplete="off"></el-input>-->
-            <!--            </el-form-item>-->
-            <el-form-item label="活动名称" :label-width="formLabelWidth">
-                <el-input v-model="rowsFrom.activityName" autocomplete="off"></el-input>
+    <el-dialog title="创建商家活动" :visible.sync="chaungjianvibe">
+        <el-form :model="chuangj_form">
+            <el-form-item label="商家名称" :label-width="formLabelWidth" prop="businessName"
+                          :rules="[{ required: true, message: '活动名不能为空'}]">
+                <el-input v-model="chuangj_form.businessName" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="规则" :label-width="formLabelWidth">
-                <el-input v-model="rowsFrom.activityRole" autocomplete="off"></el-input>
+            <el-form-item label="活动地点" :label-width="formLabelWidth" prop="activitySite"
+                          :rules="[{ required: true, message: '活动地点不能为空'}]">
+                <el-input v-model="chuangj_form.activitySite" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="活动时间" :label-width="formLabelWidth">
-                <el-input type="date" v-model="rowsFrom.activityTime" autocomplete="off"></el-input>
+            <el-form-item label="活动时间" :label-width="formLabelWidth" prop="activityTime"
+                          :rules="[{ required: true, message: '活动时间不能为空'}]">
+                <el-date-picker
+                        v-model="chuangj_form.activityTime"
+                        type="datetime"
+                        format="yyyy-MM-dd hh:mm"
+                        value-format="yyyy-MM-dd hh:mm"
+                        placeholder="选择日期时间">
+                </el-date-picker>
             </el-form-item>
-            <el-form-item label="活动内容" :label-width="formLabelWidth">
-                <el-input v-model="rowsFrom.activityContent" autocomplete="off"></el-input>
+            <el-form-item label="宣传时间" :label-width="formLabelWidth" prop="propagandaTime"
+                          :rules="[{ required: true, message: '宣传时间不能为空'}]">
+                <el-date-picker
+                        v-model="chuangj_form.propagandaTime"
+                        type="datetime"
+                        format="yyyy-MM-dd hh:mm"
+                        value-format="yyyy-MM-dd hh:mm"
+                        placeholder="选择日期时间">
+                </el-date-picker>
             </el-form-item>
-            <el-form-item label="活动区域" :label-width="formLabelWidth">
-                <el-select v-model="rowsFrom.activityArea" placeholder="请选择活动区域">
-                    <el-option label="校内" value="福建师范大学"></el-option>
-                    <el-option label="校外" value="福州"></el-option>
-                </el-select>
+            <el-form-item label="商家简介" :label-width="formLabelWidth" prop="briefIntroduction"
+                          :rules="[{ required: true, message: '商家简介不能为空'}]">
+                <el-input v-model="chuangj_form.briefIntroduction" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="具体地点" :label-width="formLabelWidth">
-                <el-input v-model="rowsFrom.activitySite" autocomplete="off"></el-input>
+            <el-form-item label="活动简介" :label-width="formLabelWidth" prop="tagline"
+                          :rules="[{ required: true, message: '活动简介不能为空'}]">
+                <el-input v-model="chuangj_form.tagline" autocomplete="off"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="chaungjian">取 消</el-button>
-            <el-button type="primary" @click="xiugai('editFrom')">确 定</el-button>
+            <el-button @click="chaungjianvibe = false">取 消</el-button>
+            <el-button type="primary" @click="chaungjian">确 定</el-button>
         </div>
-    </el-dialog>
-
-    <el-dialog title="查看报名情况" :visible.sync="detailFrom">
-        <el-table
-                :data="tableData3"
-                style="width: 100%">
-            <el-table-column type="expand">
-                <template slot-scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
-                        <el-form-item label="活动名称">
-                            <span>{{ props.row.activityName }}</span>
-                        </el-form-item>
-                        <el-form-item label="报名人名字">
-                            <span>{{ props.row.custName }}</span>
-                        </el-form-item>
-                        <el-form-item label="联系方式">
-                            <span>{{ props.row.custPhone }}</span>
-                        </el-form-item>
-                        <el-form-item label="报名人学院">
-                            <span>{{ props.row.custAcademy }}</span>
-                        </el-form-item>
-                        <el-form-item label="报名人年级">
-                            <span>{{ props.row.custGrade }}</span>
-                        </el-form-item>
-                        <el-form-item label="报名人专业">
-                            <span>{{ props.row.custProfession }}</span>
-                        </el-form-item>
-                        <el-form-item label="性格类型">
-                            <span>{{ props.row.custCharacter }}</span>
-                        </el-form-item>
-                        <el-form-item label="报名时间">
-                            <span>{{ props.row.joinTime }}</span>
-                        </el-form-item>
-                    </el-form>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="活动名称"
-                    prop="activityName">
-            </el-table-column>
-            <el-table-column
-                    label="报名人"
-                    prop="custName">
-            </el-table-column>
-            <el-table-column
-                    label="联系方式"
-                    prop="custPhone">
-            </el-table-column>
-        </el-table>
     </el-dialog>
 </div>
 
@@ -544,15 +407,16 @@
     var tableData3 = [];
     var islogin1 = false;
     $.ajax({
-        url: "/queryMyMemberMessage",
+        url: "/queryMyAdminMessage",
         type: "post",
         async: false,
         data: {},
         success: function (data) {
             if (data.resultCode === '200') {
+                islogin1 = true;
                 $.ajax({
-                    url: "/queryMyActivityList",
-                    type: "get",
+                    url: "/queryMemberActivityByCondition",
+                    type: "post",
                     async: false,
                     data: {},
                     success: function (data) {
@@ -570,19 +434,17 @@
                         layer.msg('系统错误请稍后重试');
                     }
                 });
-
                 $.ajax({
-                    url: "/queryMyJoinMemberActivity",
+                    url: "/queryBusinessmenRecommend",
                     type: "get",
                     async: false,
                     data: {},
                     success: function (data) {
                         if (data.resultCode === '200') {
                             tableData2.splice(0, tableData2.length);
-                            for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
-                                tableData2.push(data.data.memberActivityUniteEntities[i])
+                            for (i = 0, len = data.data.businessmenRecommendBeans.length; i < len; i++) {
+                                tableData2.push(data.data.businessmenRecommendBeans[i])
                             }
-                            console.log(tableData2)
                         } else {
                             layer.msg(data.resultMsg);
                         }
@@ -591,7 +453,6 @@
                         layer.msg('系统错误请稍后重试');
                     }
                 });
-                islogin1 = true;
             } else {
                 //  layer.msg(data.resultMsg);
             }
@@ -617,6 +478,7 @@
                 editFrom: false,
                 myactivity: false,
                 detailFrom: false,
+                merchantManage: false,
                 myJoinactivity: false,
                 tableData: tableData1,
                 tableData2: tableData2,
@@ -753,15 +615,54 @@
                 this.$refs[dengluFrom].validate((valid) => {
                     if (valid) {
                         $.ajax({
-                            url: "/login",
+                            url: "/adminLogin",
                             type: "post",
                             async: false,
                             data: {
-                                custStudentNumber: this.form.name,
-                                custPassword: this.form.password
+                                adminAccount: this.form.name,
+                                adminPassword: this.form.password
                             },
                             success: function (data) {
                                 if (data.resultCode === '200') {
+                                    $.ajax({
+                                        url: "/queryMemberActivityByCondition",
+                                        type: "post",
+                                        async: false,
+                                        data: {},
+                                        success: function (data) {
+                                            if (data.resultCode === '200') {
+                                                tableData1.splice(0, tableData1.length);
+                                                for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
+                                                    tableData1.push(data.data.memberActivityUniteEntities[i])
+                                                }
+                                                console.log(tableData1)
+                                            } else {
+                                                layer.msg(data.resultMsg);
+                                            }
+                                        },
+                                        error: function (data) {
+                                            layer.msg('系统错误请稍后重试');
+                                        }
+                                    });
+                                    $.ajax({
+                                        url: "/queryBusinessmenRecommend",
+                                        type: "get",
+                                        async: false,
+                                        data: {},
+                                        success: function (data) {
+                                            if (data.resultCode === '200') {
+                                                tableData2.splice(0, tableData2.length);
+                                                for (i = 0, len = data.data.businessmenRecommendBeans.length; i < len; i++) {
+                                                    tableData2.push(data.data.businessmenRecommendBeans[i])
+                                                }
+                                            } else {
+                                                layer.msg(data.resultMsg);
+                                            }
+                                        },
+                                        error: function (data) {
+                                            layer.msg('系统错误请稍后重试');
+                                        }
+                                    });
                                     t = true;
                                     layer.msg('登录成功');
                                 } else {
@@ -876,14 +777,9 @@
             },
 
             GoGo() {
-                window.open('PersonalityAssessment.html')
+                window.open('BusinessManage.html')
             },
-            goMerchant() {
-                window.open('BusinessActivities.html')
-            },
-            ceping() {
-                window.open('https://types.yuzeli.com/survey/mbti24')
-            },
+
             zhuchequxiao() {
 
                 this.form1 = {
@@ -900,6 +796,7 @@
                 this.islogin = false;
             },
             xqluru() {
+
                 this.form2 = {
                     name: '',
                     region: '',
@@ -909,32 +806,30 @@
             chaungjian() {
 
                 $.ajax({
-                    url: "/insertMemberActivity",
+                    url: "/insertBusinessmenRecommend",
                     type: "post",
                     async: false,
                     data: {
-                        activityName: this.chuangj_form.name,
-                        activityRole: this.chuangj_form.rule,
-                        activityTime: this.chuangj_form.time,
-                        activityArea: this.chuangj_form.region,
-                        activitySite: this.chuangj_form.place,
-                        activityContent: this.chuangj_form.text,
+                        businessName: this.chuangj_form.businessName,
+                        briefIntroduction: this.chuangj_form.briefIntroduction,
+                        activityTime: this.chuangj_form.activityTime,
+                        activitySite: this.chuangj_form.activitySite,
+                        propagandaTime: this.chuangj_form.propagandaTime,
+                        tagline: this.chuangj_form.tagline,
                     },
                     success: function (data) {
                         if (data.resultCode === '200') {
                             $.ajax({
-                                url: "/queryMyActivityList",
+                                url: "/queryBusinessmenRecommend",
                                 type: "get",
                                 async: false,
                                 data: {},
                                 success: function (data) {
                                     if (data.resultCode === '200') {
-                                        tableData1.splice(0, tableData1.length);
-                                        for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
-
-                                            tableData1.push(data.data.memberActivityUniteEntities[i])
+                                        tableData2.splice(0, tableData2.length);
+                                        for (i = 0, len = data.data.businessmenRecommendBeans.length; i < len; i++) {
+                                            tableData2.push(data.data.businessmenRecommendBeans[i])
                                         }
-                                        console.log(tableData1)
                                     } else {
                                         layer.msg(data.resultMsg);
                                     }
@@ -958,17 +853,17 @@
                 // let index = this.tableData.findIndex((item) => item.name = this.rowsFrom.name);
                 // this.tableData[index] = this.rowsFrom;
                 $.ajax({
-                    url: "/updateActivity",
+                    url: "/updateBusinessmenRecommend",
                     type: "post",
                     async: false,
                     data: {
                         id: this.rowsFrom.id,
-                        activityName: this.rowsFrom.activityName,
-                        activityRole: this.rowsFrom.activityRole,
+                        businessName: this.rowsFrom.businessName,
+                        briefIntroduction: this.rowsFrom.briefIntroduction,
                         activityTime: this.rowsFrom.activityTime,
-                        activityArea: this.rowsFrom.activityArea,
                         activitySite: this.rowsFrom.activitySite,
-                        activityContent: this.rowsFrom.activityContent,
+                        propagandaTime: this.rowsFrom.propagandaTime,
+                        tagline: this.rowsFrom.tagline,
                     },
                     success: function (data) {
                         if (data.resultCode === '200') {
@@ -1025,7 +920,7 @@
             handleDelete(index, row) {
                 console.log(row.id);
                 $.ajax({
-                    url: "/deleteActivity",
+                    url: "/deleteBusinessmenRecommend",
                     type: "post",
                     async: false,
                     data: {
@@ -1034,18 +929,16 @@
                     success: function (data) {
                         if (data.resultCode === '200') {
                             $.ajax({
-                                url: "/queryMyActivityList",
+                                url: "/queryBusinessmenRecommend",
                                 type: "get",
                                 async: false,
                                 data: {},
                                 success: function (data) {
                                     if (data.resultCode === '200') {
-                                        tableData1.splice(0, tableData1.length);
-                                        for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
-
-                                            tableData1.push(data.data.memberActivityUniteEntities[i])
+                                        tableData2.splice(0, tableData2.length);
+                                        for (i = 0, len = data.data.businessmenRecommendBeans.length; i < len; i++) {
+                                            tableData2.push(data.data.businessmenRecommendBeans[i])
                                         }
-                                        console.log(tableData1)
                                     } else {
                                         layer.msg(data.resultMsg);
                                     }
@@ -1054,6 +947,7 @@
                                     layer.msg('系统错误请稍后重试');
                                 }
                             });
+                            //  location.reload();
                             layer.msg('删除成功');
                         } else {
                             layer.msg(data.resultMsg);

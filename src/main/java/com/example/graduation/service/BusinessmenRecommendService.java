@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +37,7 @@ public class BusinessmenRecommendService {
     public void insertBusinessmenRecommend(BusinessmenRecommendBean businessmenRecommendBean) throws Exception {
         BusinessmenRecommendEntity businessmenRecommendEntity = new BusinessmenRecommendEntity();
         BeanUtils.copyProperties(businessmenRecommendBean, businessmenRecommendEntity);
+        businessmenRecommendEntity.setCreateTime(new Date());
         int update = businessmenRecommendRepository.insert(businessmenRecommendEntity);
         if (update <= 0) {
             throw new Exception("插入商家活动失败");
@@ -65,4 +67,21 @@ public class BusinessmenRecommendService {
         queryBusinessmenRecommendBean.setBusinessmenRecommendBeans(businessmenRecommendBeans);
         return queryBusinessmenRecommendBean;
     }
+
+    public QueryBusinessmenRecommendBean queryAllBusinessmenRecommend() throws Exception {
+        QueryBusinessmenRecommendBean queryBusinessmenRecommendBean = new QueryBusinessmenRecommendBean();
+        List<QueryBusinessmenRecommendBean.BusinessmenRecommendBean> businessmenRecommendBeans = new ArrayList<>();
+        List<BusinessmenRecommendListEntity> select = businessmenRecommendRepository.selectAll();
+        if (select.size() > 0) {
+            select.forEach(businessmenRecommendListEntity -> {
+                QueryBusinessmenRecommendBean.BusinessmenRecommendBean businessmenRecommendBean = new QueryBusinessmenRecommendBean.BusinessmenRecommendBean();
+                BeanUtils.copyProperties(businessmenRecommendListEntity, businessmenRecommendBean);
+                businessmenRecommendBeans.add(businessmenRecommendBean);
+            });
+        }
+        queryBusinessmenRecommendBean.setBusinessmenRecommendBeans(businessmenRecommendBeans);
+        return queryBusinessmenRecommendBean;
+    }
+
+
 }

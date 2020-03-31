@@ -25,4 +25,6 @@ public class MerchantLikeEntity {
     private Long id;
     private Long merchantId;
     private Long studentNumber;
+
+    int number;
 }

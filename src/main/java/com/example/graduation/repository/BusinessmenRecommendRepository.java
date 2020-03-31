@@ -35,6 +35,11 @@ public class BusinessmenRecommendRepository {
         return merchantLikeMapper.queryRecommendList();
     }
 
+    public List<BusinessmenRecommendListEntity> selectAll() {
+        return merchantLikeMapper.queryAllRecommendList();
+    }
+
+
     public int update(BusinessmenRecommendEntity recommendEntity) {
         return businessmenRecommendMapper.updateBusinessmenRecommend(recommendEntity);
     }

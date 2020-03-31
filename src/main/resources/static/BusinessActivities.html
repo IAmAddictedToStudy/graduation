@@ -182,6 +182,7 @@
                     success: function (data) {
                         if (data.resultCode === '200') {
                             alert('点赞成功');
+                            location.reload();
                         } else {
                             alert(data.resultMsg);
                         }

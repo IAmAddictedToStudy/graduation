@@ -20,4 +20,8 @@ import java.util.List;
 public interface MerchantLikeMapper extends tk.mybatis.mapper.common.Mapper<MerchantLikeEntity> {
     @SelectProvider(type = MerchantLikeProvider.class, method = "queryRecommendList")
     List<BusinessmenRecommendListEntity> queryRecommendList();
+
+    @SelectProvider(type = MerchantLikeProvider.class, method = "queryAllRecommendList")
+    List<BusinessmenRecommendListEntity> queryAllRecommendList();
+
 }

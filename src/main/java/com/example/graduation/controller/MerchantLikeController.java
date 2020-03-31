@@ -43,7 +43,6 @@ public class MerchantLikeController extends BaseController {
             resultBean.setResultMsg("未登录，请重新登录");
             return resultBean;
         }
-
         service.insertMerchantLike(entity);
         return resultBean;
     }

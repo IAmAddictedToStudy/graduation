@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * @author LiaoFuQin
@@ -28,5 +29,6 @@ public class BusinessmenRecommendEntity {
     private String activityTime;
     private String activitySite;
     private String propagandaTime;
+    private Date createTime;
     private String tagline;
 }
