@@ -1,6 +1,7 @@
 package com.example.graduation.controller;
 
 import com.example.graduation.bean.*;
+import com.example.graduation.service.ActivityRegisteationService;
 import com.example.graduation.service.MemberActivityService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import java.util.Date;
 public class MemberActivityController {
     @Autowired
     MemberActivityService service;
+    @Autowired
+    ActivityRegisteationService activityRegisteationService;
 
     @PostMapping("/queryMemberActivityByCondition")
     public CommonResultBean<QueryMemberActivityResponseBean> queryMemberActivityByCondition(QueryMemberActivityRequestBean requestBean) {
@@ -31,6 +34,28 @@ public class MemberActivityController {
         resultBean.setData(service.queryMemberActivityByCondition(requestBean));
         return resultBean;
     }
+
+    @GetMapping("/queryMyJoinMemberActivity")
+    public CommonResultBean<QueryMemberActivityResponseBean> queryMyJoinMemberActivity(HttpSession session) {
+        CommonResultBean<QueryMemberActivityResponseBean> resultBean = new CommonResultBean<>();
+        String studentNumber;
+        try {
+            MemberCustBean memberCustBean = (MemberCustBean) session.getAttribute("memberCustBean");
+            if (memberCustBean == null) {
+                resultBean.setResultCode("-1");
+                resultBean.setResultMsg("未登录，请重新登录");
+                return resultBean;
+            }
+            studentNumber = memberCustBean.getCustStudentNumber();
+        } catch (Exception e) {
+            resultBean.setResultCode("-1");
+            resultBean.setResultMsg("未登录，请重新登录");
+            return resultBean;
+        }
+        resultBean.setData(activityRegisteationService.queryMyJoinMemberActivity(studentNumber));
+        return resultBean;
+    }
+
 
     @PostMapping("/insertMemberActivity")
     public CommonResultBean insertMemberActivity(MemberActivityBean memberActivityBean, HttpSession session) throws ParseException {

@@ -127,7 +127,7 @@
                     更多菜单
                     <el-dropdown-menu slot="dropdown">
                         <el-button type="text" @click="myactivity = true">我的活动</el-button>
-                        <el-button type="text" @click="myactivity = true">我加入的活动</el-button>
+                        <el-button type="text" @click="myJoinactivity = true">我加入的活动</el-button>
                         <el-button type="text" @click="handleClick1">退出登录</el-button>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -172,28 +172,9 @@
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="6">
-                        <div class="grid-content bg-purple">
+                        <div class="grid-content bg-purple" @click="goMerchant">
                             <img class="icons" src="./assetes/MuchMore.png"/>
-                            <p class="title">韩式烤肉团购优惠</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="grid-content bg-purple">
-                            <img class="icons" src="./assetes/新生.png"/>
-                            <p class="title">新生吉他半价</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="grid-content bg-purple">
-                            <img class="icons" src="./assetes/体育用品.png"/>
-                            <p class="title">世纪星文具</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="grid-content bg-purple" type="text" @click="interest = true">
-                            <img class="icons" src="./assetes/奇思妙想.png"/>
-                            <p class="title">兴趣录入</p>
-
+                            <p class="title">商家活动推荐</p>
                         </div>
                     </el-col>
                 </el-row>
@@ -409,6 +390,58 @@
             </el-table-column>
         </el-table>
     </el-dialog>
+
+    <el-dialog title="我的加入的活动" :visible.sync="myJoinactivity">
+        <el-table
+                :data="tableData2"
+                style="width: 100%">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+                        <el-form-item label="活动id">
+                            <span>{{ props.row.id }}</span>
+                        </el-form-item>
+                        <el-form-item label="活动名称">
+                            <span>{{ props.row.activityName }}</span>
+                        </el-form-item>
+                        <el-form-item label="活动规则">
+                            <span>{{ props.row.activityRole }}</span>
+                        </el-form-item>
+                        <el-form-item label="活动时间">
+                            <span>{{ props.row.activityTime }}</span>
+                        </el-form-item>
+                        <el-form-item label="活动内容">
+                            <span>{{ props.row.activityContent }}</span>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <span>{{ props.row.activityArea }}</span>
+                        </el-form-item>
+                        <el-form-item label="具体地点">
+                            <span>{{ props.row.activitySite }}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="活动名称"
+                    prop="activityName">
+            </el-table-column>
+            <el-table-column
+                    label="地点"
+                    prop="activitySite">
+            </el-table-column>
+            <el-table-column
+                    align="right">
+                <template slot="header" slot-scope="scope">
+                    <el-input
+                            v-model="search"
+                            size="mini"
+                            placeholder="输入关键字搜索"></el-input>
+                </template>
+            </el-table-column>
+        </el-table>
+    </el-dialog>
+
     <el-dialog title="编辑活动" :visible.sync="editFrom">
         <el-form :model="rowsFrom">
             <!--            <el-form-item label="活动id" :label-width="formLabelWidth">-->
@@ -451,6 +484,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     var tableData1 = [];
+    var tableData2 = [];
     var islogin1 = false;
     $.ajax({
         url: "/queryMyMemberMessage",
@@ -459,6 +493,47 @@
         data: {},
         success: function (data) {
             if (data.resultCode === '200') {
+                $.ajax({
+                    url: "/queryMyActivityList",
+                    type: "get",
+                    async: false,
+                    data: {},
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            tableData1.splice(0, tableData1.length);
+                            for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
+                                tableData1.push(data.data.memberActivityUniteEntities[i])
+                            }
+                            console.log(tableData1)
+                        } else {
+                            layer.msg(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
+
+                $.ajax({
+                    url: "/queryMyJoinMemberActivity",
+                    type: "get",
+                    async: false,
+                    data: {},
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            tableData2.splice(0, tableData2.length);
+                            for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
+                                tableData2.push(data.data.memberActivityUniteEntities[i])
+                            }
+                            console.log(tableData2)
+                        } else {
+                            layer.msg(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
                 islogin1 = true;
             } else {
                 //  layer.msg(data.resultMsg);
@@ -468,6 +543,8 @@
             //layer.msg('系统错误请稍后重试');
         }
     });
+
+
     new Vue({
         el: '#app',
         mounted() {
@@ -482,7 +559,9 @@
                 search: '',
                 editFrom: false,
                 myactivity: false,
+                myJoinactivity: false,
                 tableData: tableData1,
+                tableData2: tableData2,
                 interest: false,
                 qingqueform: {
                     name: '',
@@ -519,8 +598,15 @@
                         index: 1,
                         url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1035415831,1465727770&fm=26&gp=0.jpg'
                     },
-                    {index: 2, url: 'http://img1.imgtn.bdimg.com/it/u=1258659760,2193329985&fm=26&gp=0.jpg'},
-                    {index: 3, url: 'http://img4.imgtn.bdimg.com/it/u=3310295053,3397875571&fm=26&gp=0.jpg'},
+                    {
+                        index: 2,
+                        url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1035415831,1465727770&fm=26&gp=0.jpg'
+                    },
+                    {
+                        index: 3,
+                        url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1035415831,1465727770&fm=26&gp=0.jpg'
+                    },
+
                 ],
                 visible: false,
                 activeIndex2: '1',
@@ -617,26 +703,6 @@
                             },
                             success: function (data) {
                                 if (data.resultCode === '200') {
-                                    $.ajax({
-                                        url: "/queryMyActivityList",
-                                        type: "get",
-                                        async: false,
-                                        data: {},
-                                        success: function (data) {
-                                            if (data.resultCode === '200') {
-                                                tableData1.splice(0, tableData1.length);
-                                                for (i = 0, len = data.data.memberActivityUniteEntities.length; i < len; i++) {
-                                                    tableData1.push(data.data.memberActivityUniteEntities[i])
-                                                }
-                                                console.log(tableData1)
-                                            } else {
-                                                layer.msg(data.resultMsg);
-                                            }
-                                        },
-                                        error: function (data) {
-                                            layer.msg('系统错误请稍后重试');
-                                        }
-                                    });
                                     t = true;
                                     layer.msg('登录成功');
                                 } else {
@@ -751,6 +817,9 @@
             },
             GoGo() {
                 window.open('PersonalityAssessment.html')
+            },
+            goMerchant() {
+                window.open('BusinessActivities.html')
             },
             ceping() {
                 window.open('https://types.yuzeli.com/survey/mbti24')

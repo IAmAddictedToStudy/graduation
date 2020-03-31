@@ -20,6 +20,7 @@ public class MemberActivityRepository {
     @Autowired
     MemberActivityMapper memberActivityMapper;
 
+
     public List<MemberActivityUniteEntity> queryMemberActivityByCondition(MemberActivityUniteEntity requestBean) {
         return memberActivityMapper.queryMemberActivityByCondition(requestBean);
     }
@@ -31,6 +32,7 @@ public class MemberActivityRepository {
     public List<MemberActivityEntity> select(MemberActivityEntity entity) {
         return memberActivityMapper.select(entity);
     }
+
 
     public int update(MemberActivityEntity entity) {
         return memberActivityMapper.updateMemberActivity(entity);

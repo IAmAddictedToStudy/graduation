@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商家活动推荐</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        /*.el-header, .el-footer {*/
+        /*    background-color: #B3C0D1;*/
+        /*    color: #333;*/
+        /*    text-align: center;*/
+        /*    line-height: 60px;*/
+        /*}*/
+
+        /*.el-aside {*/
+        /*    background-color: #D3DCE6;*/
+        /*    color: #333;*/
+        /*    text-align: center;*/
+        /*    line-height: 200px;*/
+        /*}*/
+
+        /*.el-main {*/
+        /*    background-color: #E9EEF3;*/
+        /*    color: #333;*/
+        /*    text-align: center;*/
+        /*    line-height: 160px;*/
+        /*}*/
+
+        /*body > .el-container {*/
+        /*    margin-bottom: 40px;*/
+        /*}*/
+
+        /*.el-container:nth-child(5) .el-aside,*/
+        /*.el-container:nth-child(6) .el-aside {*/
+        /*    line-height: 260px;*/
+        /*}*/
+
+        /*.el-container:nth-child(7) .el-aside {*/
+        /*    line-height: 320px;*/
+        /*}*/
+        .demo-table-expand {
+            font-size: 0;
+        }
+
+        .demo-table-expand label {
+            width: 90px;
+            color: #99a9bf;
+        }
+
+        .demo-table-expand .el-form-item {
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-header>
+            <el-menu
+                    :default-active="activeIndex2"
+                    class="el-menu-demo"
+                    mode="horizontal"
+                    @select="handleSelect"
+                    background-color="#545c64"
+                    text-color="#fff"
+                    active-text-color="#ffd04b">
+                <el-menu-item index="3">推荐中心</el-menu-item>
+
+            </el-menu>
+
+        </el-header>
+        <el-main>
+            <el-table
+                    :data="tableData1"
+                    style="width: 100%">
+                <el-table-column type="expand">
+                    <template slot-scope="props">
+                        <el-form label-position="left" inline class="demo-table-expand">
+                            <el-form-item label="商家名">
+                                <span>{{ props.row.businessName }}</span>
+                            </el-form-item>
+                            <el-form-item label="简介">
+                                <span>{{ props.row.briefIntroduction }}</span>
+                            </el-form-item>
+                            <el-form-item label="活动时间">
+                                <span>{{ props.row.activityTime }}</span>
+                            </el-form-item>
+                            <el-form-item label="活动地点">
+                                <span>{{ props.row.activitySite }}</span>
+                            </el-form-item>
+                            <el-form-item label="宣传语">
+                                <span>{{ props.row.tagline }}</span>
+                            </el-form-item>
+                        </el-form>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="商家名"
+                        prop="businessName">
+                </el-table-column>
+                <el-table-column
+                        label="简介"
+                        prop="briefIntroduction">
+                </el-table-column>
+                <el-table-column
+                        label="点赞人数"
+                        prop="likeCount">
+                </el-table-column>
+                <el-table-column
+                        align="right">
+                    <template slot="header" slot-scope="scope">
+                        <el-input
+                                v-model="search"
+                                size="mini"
+                                placeholder="输入关键字搜索"></el-input>
+                    </template>
+                    <template slot-scope="scope">
+                        <el-button
+                                size="mini"
+                                @click="handleEdit(scope.$index, scope.row)">点赞
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-main>
+    </el-container>
+</div>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="/layer/layer.js"></script>
+<script>
+    var tableData1 = [];
+    $.ajax({
+        url: "/queryBusinessmenRecommend",
+        type: "get",
+        async: false,
+        data: {},
+        success: function (data) {
+            if (data.resultCode === '200') {
+                for (i = 0, len = data.data.businessmenRecommendBeans.length; i < len; i++) {
+                    tableData1.push(data.data.businessmenRecommendBeans[i]);
+                }
+                console.log(tableData1);
+            } else {
+                layer.msg(data.resultMsg);
+            }
+        },
+        error: function (data) {
+            layer.msg('系统错误请稍后重试');
+        }
+    });
+
+    function joinActivity(data) {
+
+        layer.msg('点击测试' + $("#id").val());
+    }
+
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                tableData1: tableData1,
+                activeIndex: '1',
+                activeIndex2: '1'
+            }
+        },
+        methods: {
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleEdit(index, row) {
+                $.ajax({
+                    url: "/insertMerchantLike",
+                    type: "post",
+                    async: false,
+                    data: {
+                        merchantId: row.id,
+                    },
+                    success: function (data) {
+                        if (data.resultCode === '200') {
+                            alert('点赞成功');
+                        } else {
+                            alert(data.resultMsg);
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg('系统错误请稍后重试');
+                    }
+                });
+            },
+        }
+    })
+</script>
+
+</body>
+</html>

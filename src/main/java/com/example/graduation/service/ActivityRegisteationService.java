@@ -1,12 +1,15 @@
 package com.example.graduation.service;
 
 import com.example.graduation.bean.ActivityRegistrationBean;
+import com.example.graduation.bean.QueryMemberActivityResponseBean;
 import com.example.graduation.repository.ActivityRegistrationRepository;
 import com.example.graduation.repository.entity.ActivityRegistrationEntity;
+import com.example.graduation.repository.entity.MemberActivityUniteEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,5 +34,20 @@ public class ActivityRegisteationService {
         if (repository.insertActivityRegistration(activityRegistrationEntity) <= 0) {
             throw new Exception("报名活动失败，请重试");
         }
+    }
+
+    public QueryMemberActivityResponseBean queryMyJoinMemberActivity(String studentNumber) {
+        QueryMemberActivityResponseBean queryMemberActivityResponseBean = new QueryMemberActivityResponseBean();
+        List<QueryMemberActivityResponseBean.MemberActivityUniteEntity> memberActivityUniteEntities = new ArrayList<>();
+        ActivityRegistrationEntity activityRegistrationEntity = new ActivityRegistrationEntity();
+        activityRegistrationEntity.setStudentNumber(studentNumber);
+        List<MemberActivityUniteEntity> memberActivityUniteEntities1 = repository.queryMyJoinMemberActivity(activityRegistrationEntity);
+        memberActivityUniteEntities1.forEach(memberActivityUniteEntitie -> {
+            QueryMemberActivityResponseBean.MemberActivityUniteEntity entity = new QueryMemberActivityResponseBean.MemberActivityUniteEntity();
+            BeanUtils.copyProperties(memberActivityUniteEntitie, entity);
+            memberActivityUniteEntities.add(entity);
+        });
+        queryMemberActivityResponseBean.setMemberActivityUniteEntities(memberActivityUniteEntities);
+        return queryMemberActivityResponseBean;
     }
 }

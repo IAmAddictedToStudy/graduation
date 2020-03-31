@@ -1,12 +1,9 @@
-package com.example.graduation.repository.entity;
+package com.example.graduation.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * @author LiaoFuQin
@@ -19,9 +16,7 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "merchant_like")
-public class MerchantLikeEntity {
-    @Id
+public class MerchantLikeEntityBean {
     private Long id;
     private Long merchantId;
     private Long studentNumber;

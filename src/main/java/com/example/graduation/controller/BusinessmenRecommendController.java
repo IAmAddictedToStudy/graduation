@@ -6,6 +6,7 @@ import com.example.graduation.bean.QueryBusinessmenRecommendBean;
 import com.example.graduation.service.BusinessmenRecommendService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,7 +65,7 @@ public class BusinessmenRecommendController {
         return new CommonResultBean();
     }
 
-    @PostMapping("/queryBusinessmenRecommend")
+    @GetMapping("/queryBusinessmenRecommend")
     public CommonResultBean<QueryBusinessmenRecommendBean> queryBusinessmenRecommend() throws Exception {
         CommonResultBean<QueryBusinessmenRecommendBean> commonResultBean = new CommonResultBean<>();
         QueryBusinessmenRecommendBean queryBusinessmenRecommendBean = businessmenRecommendService.queryBusinessmenRecommend();

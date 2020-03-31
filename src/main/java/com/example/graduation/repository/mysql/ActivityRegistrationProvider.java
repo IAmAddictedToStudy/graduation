@@ -29,4 +29,15 @@ public class ActivityRegistrationProvider {
         }}.toString();
     }
 
+    public String queryMyJoinMemberActivity(ActivityRegistrationEntity entity) {
+        return new SQL() {{
+            SELECT(" ma.*");
+            FROM("activity_registration ar\n" +
+                    "         left join member_activity ma on ar.activity_id = ma.id");
+
+            WHERE(" ar.student_number = #{studentNumber} ");
+            ORDER_BY("ma.activity_time desc ");
+        }}.toString();
+    }
+
 }
