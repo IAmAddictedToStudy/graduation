@@ -22,11 +22,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MemberActivityService
  * @Description TODO
  * @Date 2020/3/22 16:27
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Service
 public class MemberActivityService {

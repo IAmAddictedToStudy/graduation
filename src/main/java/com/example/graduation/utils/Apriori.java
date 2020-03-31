@@ -3,11 +3,11 @@ package com.example.graduation.utils;
 import java.util.*;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname Apriori
  * @Description TODO
  * @Date 2020/3/23 20:44
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 public class Apriori {
     private final static int SUPPORT = 2;

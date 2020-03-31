@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MemberCustRepository
  * @Description TODO
  * @Date 2020/3/21 19:36
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Repository
 public class MemberCustRepository {

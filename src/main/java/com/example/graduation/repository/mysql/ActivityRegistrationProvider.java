@@ -6,11 +6,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MemberCustMapper
  * @Description TODO
  * @Date 2020/2/7 15:15
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 
 

@@ -8,20 +8,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Table;
 
 /**
- * @author DaiDaQi
- * @Classname MemberActivityEntity
+ * @author LiaoFuQin
+ * @Classname MerchantLike
  * @Description TODO
- * @Date 2020/3/21 20:04
- * @Created by DaiDaQi
+ * @Date 2020/3/27 21:13
+ * @Created by LiaoFuQin
  */
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "activity_registration")
-public class ActivityRegistrationEntity {
+@Table(name = "merchant_like")
+public class MerchantLikeEntity {
     private Long id;
-    private String activityId;
-    private String studentNumber;
-    private String createTime;
+    private Long merchantId;
+    private Long studentNumber;
 }

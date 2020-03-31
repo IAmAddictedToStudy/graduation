@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Table;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MemberActivityEntity
  * @Description TODO
  * @Date 2020/3/21 20:04
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Builder
 @Data

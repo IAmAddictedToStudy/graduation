@@ -9,11 +9,11 @@ import javax.validation.constraints.NotEmpty;
 
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MemberAdmin
  * @Description TODO
  * @Date 2020/2/7 15:08
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Builder
 @Data

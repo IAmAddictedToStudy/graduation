@@ -3,11 +3,11 @@ package com.example.graduation.bean;
 import lombok.Data;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname QueryMemberCustRequestBean
  * @Description TODO
  * @Date 2020/3/21 19:42
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Data
 public class QueryMemberCustRequestBean {

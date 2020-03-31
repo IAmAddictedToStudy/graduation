@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname ActivityRegisteationController
  * @Description TODO
  * @Date 2020/3/22 17:19
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @RestController
 public class ActivityRegisteationController extends BaseController {

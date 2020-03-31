@@ -8,28 +8,22 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /**
  * @author DaiDaQi
  * @Classname MemberAdmin
  * @Description TODO
- * @Date 2020/2/7 15:08
+ * @Date 2020/3/27 20:31
  * @Created by DaiDaQi
  */
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "member_cust")
-public class MemberCustEntity {
+@Table(name = "member_admin")
+public class MemberAdminEntity {
     @Id
     private Long id;
-    private String custStudentNumber;
-    private String custPassword;
-    private String custName;
-    private String custAcademy;
-    private String custGrade;
-    private String custProfession;
-    private String custPhone;
-    private String custCharacter;
+    private String adminAccount;
+    private String adminPassword;
+    private String adminCreateTime;
 }

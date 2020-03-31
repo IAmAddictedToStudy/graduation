@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MemberController
  * @Description TODO
  * @Date 2020/3/21 19:34
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Service
 public class MemberService {

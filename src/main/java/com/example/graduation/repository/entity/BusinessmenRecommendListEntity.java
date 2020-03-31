@@ -9,26 +9,25 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author DaiDaQi
- * @Classname MemberActivityEntity
+ * @author LiaoFuQin
+ * @Classname BusinessmenRecommend
  * @Description TODO
- * @Date 2020/3/21 20:04
- * @Created by DaiDaQi
+ * @Date 2020/3/27 20:53
+ * @Created by LiaoFuQin
  */
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "member_activity")
-public class MemberActivityEntity {
+@Table(name = "businessmen_recommend")
+public class BusinessmenRecommendListEntity {
     @Id
     private Long id;
-    private String activityName;
-    private String activityRole;
+    private String businessName;
+    private String briefIntroduction;
     private String activityTime;
-    private String activityEndTime;
-    private String activityArea;
     private String activitySite;
-    private String activityCreator;
-    private String activityContent;
+    private String propagandaTime;
+    private String tagline;
+    private int likeCount;
 }

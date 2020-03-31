@@ -14,11 +14,11 @@ import java.util.List;
 
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MemberCustMapper
  * @Description TODO
  * @Date 2020/2/7 15:15
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 
 @Mapper
