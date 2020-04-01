@@ -3,11 +3,11 @@ package com.example.graduation.repository.mysql;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MerchantLikeProvider
  * @Description TODO
  * @Date 2020/3/27 21:17
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 public class MerchantLikeProvider {
 

@@ -2,7 +2,7 @@ package com.example.graduation.bean;
 
 
 /**
- * @author LFQ
+ * @author ddq
  */
 public class CommonResultBean<T> {
     private String resultCode = "200";

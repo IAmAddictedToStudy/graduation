@@ -14,11 +14,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname BusinessmenRecommendController
  * @Description TODO
  * @Date 2020/3/27 21:34
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @RestController
 public class BusinessmenRecommendController {

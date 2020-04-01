@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MerchantLikeMapper
  * @Description TODO
  * @Date 2020/3/27 21:15
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Mapper
 @Component

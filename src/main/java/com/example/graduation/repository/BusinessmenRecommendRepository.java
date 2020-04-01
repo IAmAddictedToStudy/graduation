@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname BusinessmenRecommendMapper
  * @Description TODO
  * @Date 2020/3/27 20:55
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Repository
 public class BusinessmenRecommendRepository {

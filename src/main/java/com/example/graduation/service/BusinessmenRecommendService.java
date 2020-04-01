@@ -14,11 +14,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname BusinessmenRecommendService
  * @Description TODO
  * @Date 2020/3/27 21:24
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Service
 public class BusinessmenRecommendService {

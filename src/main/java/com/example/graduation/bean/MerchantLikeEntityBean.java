@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MerchantLike
  * @Description TODO
  * @Date 2020/3/27 21:13
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Builder
 @Data

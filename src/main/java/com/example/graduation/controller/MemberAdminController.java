@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname MemberAdminController
  * @Description TODO
  * @Date 2020/3/27 20:44
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @RestController
 public class MemberAdminController extends BaseController {

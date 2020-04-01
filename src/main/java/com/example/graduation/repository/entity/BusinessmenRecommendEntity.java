@@ -10,11 +10,11 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname BusinessmenRecommend
  * @Description TODO
  * @Date 2020/3/27 20:53
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Builder
 @Data

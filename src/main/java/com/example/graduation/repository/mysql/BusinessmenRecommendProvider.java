@@ -5,11 +5,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname BusinessmenRecommendProvider
  * @Description TODO
  * @Date 2020/3/27 21:00
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 public class BusinessmenRecommendProvider {
 

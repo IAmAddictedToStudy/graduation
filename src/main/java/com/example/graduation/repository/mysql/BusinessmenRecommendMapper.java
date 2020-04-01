@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.stereotype.Component;
 
 /**
- * @author LiaoFuQin
+ * @author DaiDaQi
  * @Classname BusinessmenRecommendMapper
  * @Description TODO
  * @Date 2020/3/27 20:55
- * @Created by LiaoFuQin
+ * @Created by DaiDaQi
  */
 @Mapper
 @Component
